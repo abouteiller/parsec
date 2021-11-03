@@ -1500,12 +1500,6 @@ static void jdf_minimal_code_before_prologue(const jdf_t *jdf)
             "#include \"parsec/ayudame.h\"\n"
             "#include \"parsec/execution_stream.h\"\n"
             "#include \"parsec/mca/device/device_gpu.h\"\n"
-            "#if defined(PARSEC_HAVE_CUDA)\n"
-            "#include \"parsec/mca/device/cuda/device_cuda.h\"\n"
-            "#endif  /* defined(PARSEC_HAVE_CUDA) */\n"
-            "#if defined(PARSEC_HAVE_HIP)\n"
-            "#include \"parsec/mca/device/hip/device_hip.h\"\n"
-            "#endif  /* defined(PARSEC_HAVE_HIP) */\n"
             "#if defined(_MSC_VER) || defined(__MINGW32__)\n"
             "#  include <malloc.h>\n"
             "#else\n"
@@ -6536,7 +6530,25 @@ static void jdf_generate_code_hook_gpu(const jdf_t *jdf,
     int di;
     int profile_on;
     char* output;
-
+#if 0
+    /* Swap the output file per GPU */
+    FILE *save_cfile = cfile;
+    int   save_cfile_lineno = cfile_lineno;
+/*static FILE *hfile;
+static int   hfile_lineno;
+static const char *jdf_basename; */
+    char *save_jdf_cfilename = jdf_cfilename;
+    char *output_c = NULL;
+    asprintf(&output_c, "%s_%s", dev_lower, jdf_cfilename);
+    cfile = NULL;
+    hfile = NULL;
+    cfile = fopen(output_c, "w");
+    if( cfile == NULL ) {
+        fprintf(stderr, "unable to create %s: %s\n", output_c, strerror(errno));
+        ret = -1;
+        goto err;
+    }
+#endif
     profile_on = profile_enabled(f->properties) && profile_enabled(body->properties);
 
     jdf_find_property(body->properties, "type", &type_property);
@@ -6564,7 +6576,9 @@ static void jdf_generate_code_hook_gpu(const jdf_t *jdf,
                                                  dump_string, NULL, "", "  (void)", ";", ";\n"));
 
     /* Generate the kernel_submit structure and function */
-    coutput("struct parsec_body_%s_%s_%s_s {\n"
+    coutput("#include \"parsec/mca/device/%s/device_%s.h\"\n"
+            "\n"
+            "struct parsec_body_%s_%s_%s_s {\n"
             "  uint8_t      index;\n"
             "  %sStream_t stream;\n"
             "  %s           dyld_fn;\n"
@@ -6581,6 +6595,7 @@ static void jdf_generate_code_hook_gpu(const jdf_t *jdf,
             "  struct parsec_body_%s_%s_%s_s parsec_body = { %s_device->%s_index, %s_stream->%s_stream, NULL };\n"
             "%s\n"
             "  (void)gpu_device; (void)gpu_stream; (void)__parsec_tp; (void)parsec_body; (void)%s_device; (void)%s_stream;\n",
+            dev_lower, dev_lower,
             dev_lower, jdf_basename, f->fname,
             dev_lower,
             dyldtype,
@@ -8443,7 +8458,7 @@ int jdf2c(const char *output_c, const char *output_h, const char *_jdf_basename,
     jdf_generate_structure(jdf);
     jdf_generate_hashfunctions(jdf);
     jdf_generate_priority_prototypes(jdf);
-    jdf_generate_functions_statics(jdf); // PETER generates startup tasks
+    jdf_generate_functions_statics(jdf);
     jdf_generate_startup_hook(jdf);
 
     /**
