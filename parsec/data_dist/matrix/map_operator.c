@@ -475,7 +475,7 @@ static void parsec_map_operator_startup_fn(parsec_context_t *context,
                 fake_context.locals[1].value = n;
                 add_task_to_list(es, &fake_context, NULL, &flow_of_map_operator_dep_out, NULL,
                                  __tp->src->super.myrank, -1,
-                                 0 /* here this must always be zero due to ready_list */, 
+                                 0 /* here this must always be zero due to ready_list */,
                                  NULL, 0, (void*)&ready_list);
                 __parsec_schedule( es, ready_list, 0 );
                 count++;

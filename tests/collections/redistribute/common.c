@@ -28,7 +28,7 @@ void print_usage(void)
 {
     fprintf(stderr,
             "Optional arguments:\n"
-            "\n Source Matrix:\n" 
+            "\n Source Matrix:\n"
             " -P --source-grid-rows : rows (P) in the PxQ process grid (default: NP)\n"
             " -Q --source-grid-cols : columns (Q) in the PxQ process grid (default: NP/P)\n"
             " -M                    : dimension (M) of the matrices (default: N)\n"
@@ -39,7 +39,7 @@ void print_usage(void)
             " -S --SNB              : columns of tiles in a supertile (default: 1)\n"
             " -I                    : set row displacement\n"
             " -J                    : set column displacement\n"
-            "\n Target/Redistributed Matrix:\n" 
+            "\n Target/Redistributed Matrix:\n"
             " -p --target-grid-rows : rows (p) in the pxq process grid (default: NP)\n"
             " -q --target-grid-cols : columns (q) in the pxq process grid (default: NP/p)\n"
             " -a --MR               : set redistributed M size\n"
@@ -50,11 +50,11 @@ void print_usage(void)
             " -D --SNBR             : columns of tiles in a supertile (default: 1)\n"
             " -i                    : set redistributed row displacement\n"
             " -j                    : set redistributed column displacement\n"
-            "\n Matrix Common:\n" 
+            "\n Matrix Common:\n"
             " -R --radius           : set radius of ghost region\n"
             " -m --submatrix-rows   : set row size of submatrix to be redistributed\n"
             " -n --submatrix-cols   : set column size of submatrix to be redistributed\n"
-            "\n Others:\n" 
+            "\n Others:\n"
             " -x --check            : verify the results\n"
             " -u --network-bandwidth: bandwidth of network, bits\n"
             " -U --memcpy-bandwidth : bandwidth of memcpy, bits\n"
@@ -141,7 +141,7 @@ static struct option long_options[] =
     {"help",               no_argument,        0, 'h'},
     {"h",                  no_argument,        0, 'h'},
 
-    /* Number of runs */ 
+    /* Number of runs */
     {"num-runs",           required_argument,  0, 'e'},
     {"e",                  required_argument,  0, 'e'},
 
@@ -149,10 +149,10 @@ static struct option long_options[] =
     {"thread-multiple",    required_argument,  0, 'f'},
     {"f",                  required_argument,  0, 'f'},
 
-    /* no_optimization version */ 
+    /* no_optimization version */
     {"no-optimization",    required_argument,  0, 'y'},
     {"y",                  required_argument,  0, 'y'},
-     
+
     /* Time */
     {"time",               no_argument,        0, 'z'},
     {"z",                  no_argument,        0, 'z'},
@@ -173,9 +173,9 @@ static void parse_arguments(int *_argc, char*** _argv, int* iparam, double *dpar
     char **argv = *_argv;
 
     /* Default */
-    iparam[IPARAM_CHECK] = 0; 
-    iparam[IPARAM_GETTIME] = 0; 
-    iparam[IPARAM_VERBOSE] = 0; 
+    iparam[IPARAM_CHECK] = 0;
+    iparam[IPARAM_GETTIME] = 0;
+    iparam[IPARAM_VERBOSE] = 0;
     iparam[IPARAM_NCORES] = -1;
     iparam[IPARAM_RADIUS] = 0;
 
@@ -191,7 +191,7 @@ static void parse_arguments(int *_argc, char*** _argv, int* iparam, double *dpar
     /* Default MPI_THREAD_SERIALIZED */
     iparam[IPARAM_THREAD_MULTIPLE] = 0;
 
-    /* Default Not no_optimization version */ 
+    /* Default Not no_optimization version */
     iparam[IPARAM_NO_OPTIMIZATION_VERSION] = 0;
 
     /* Bandwidth 0 by defalut */
@@ -299,12 +299,12 @@ static void parse_arguments(int *_argc, char*** _argv, int* iparam, double *dpar
     if(iparam[IPARAM_MB_R] < 0) iparam[IPARAM_MB_R] = -iparam[IPARAM_MB_R];
     if(iparam[IPARAM_NB_R] < 0) iparam[IPARAM_NB_R] = -iparam[IPARAM_NB_R];
 
-    if( iparam[IPARAM_MB] <= 0 || iparam[IPARAM_NB] <= 0 ){ 
+    if( iparam[IPARAM_MB] <= 0 || iparam[IPARAM_NB] <= 0 ){
         fprintf(stderr, "#XXXXX Source tile size (NB) is negative!\n");
         exit(2);
     }
 
-    if( iparam[IPARAM_MB_R] <= 0 || iparam[IPARAM_NB_R] <= 0 ){   
+    if( iparam[IPARAM_MB_R] <= 0 || iparam[IPARAM_NB_R] <= 0 ){
         fprintf(stderr, "#XXXXX Target/Redistributed tile size (NBR) is negative!\n");
         exit(2);
     }
@@ -327,7 +327,7 @@ static void print_arguments(int* iparam)
                         iparam[IPARAM_P], iparam[IPARAM_Q]);
 
         if(iparam[IPARAM_SNB] * iparam[IPARAM_SMB] != 1)
-            fprintf(stderr, "#+++++ SMB x SNB :               %d x %d\n", 
+            fprintf(stderr, "#+++++ SMB x SNB :               %d x %d\n",
                              iparam[IPARAM_SMB], iparam[IPARAM_SNB]);
 
         fprintf(stderr, "#+++++ M x N :                   %d x %d\n",
@@ -344,14 +344,14 @@ static void print_arguments(int* iparam)
         fprintf(stderr, "#+++++ PR x QR :                 %d x %d\n",
                         iparam[IPARAM_P_R], iparam[IPARAM_Q_R]);
 
-        fprintf(stderr, "#+++++ MR x NR :                 %d x %d\n", 
+        fprintf(stderr, "#+++++ MR x NR :                 %d x %d\n",
                          iparam[IPARAM_M_R], iparam[IPARAM_N_R]);
 
         if(iparam[IPARAM_SNB_R] * iparam[IPARAM_SMB_R] != 1)
             fprintf(stderr, "#+++++ SMBR x SNBR :             %d x %d\n",
                              iparam[IPARAM_SMB_R], iparam[IPARAM_SNB_R]);
 
-        fprintf(stderr, "#+++++ MBR x NBR:                %d x %d\n", 
+        fprintf(stderr, "#+++++ MBR x NBR:                %d x %d\n",
                          iparam[IPARAM_MB_R], iparam[IPARAM_NB_R]);
 
         fprintf(stderr, "#+++++ disi , disj :             %d , %d \n",

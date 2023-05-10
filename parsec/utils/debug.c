@@ -201,7 +201,7 @@ typedef struct {
 #define UNDEFINED_MARK (0xFFFFFFFF)
 
 /**
- * A mark buffer is an allocated memory segment of size parsec_debug_max_history_length_per_thread (upgraded to 
+ * A mark buffer is an allocated memory segment of size parsec_debug_max_history_length_per_thread (upgraded to
  * a multiple of MARK_SIZE, and a set of pointers / counters to track marks inside that buffer. */
 typedef struct {
     unsigned char *buffer;       /** Pointer to a pre-allocated buffer of parsec_debug_max_history_length_per_thread bytes */
@@ -389,7 +389,7 @@ static inline mark_t *get_my_mark(int actual_size, int *actual_space)
 
 /**
  * @brief Appends a debug message to the history
- * 
+ *
  * @details
  *    This function is similar to printf: it takes the
  *    same arguments. It is not necessary to complete each print

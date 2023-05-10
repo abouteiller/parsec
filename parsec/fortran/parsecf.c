@@ -10,11 +10,11 @@
 
 /**
  * @brief A function callable from Fortran allowing to initialize the PaRSEC runtime
- * 
- * @param nbcores 
- * @param context 
- * @param ierr 
- * 
+ *
+ * @param nbcores
+ * @param context
+ * @param ierr
+ *
  * As there is no standard way to find the arg[cv] in Fortran, we build them using
  * the PARSEC_ARGS environment variable.
  */

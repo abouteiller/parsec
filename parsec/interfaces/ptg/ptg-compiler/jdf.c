@@ -306,7 +306,7 @@ static int jdf_sanity_check_expr_bound_before_definition(jdf_expr_t *e, jdf_func
             if(NULL != nr->alias)
                 nb++;
     }
-    
+
     switch( e->op ) {
     case JDF_VAR:
         vc = strdup(e->jdf_var);
@@ -386,7 +386,7 @@ static int jdf_sanity_check_expr_bound(jdf_expr_t *e, const char *kind, jdf_func
     jdf_expr_t *nr;
     char *vc, *dot;
     int rc = 0;
-    
+
     if(NULL != e->local_variables) {
         /* Use the opportunity to update the number of local definitions
          * that we may need to define this expression */
@@ -395,7 +395,7 @@ static int jdf_sanity_check_expr_bound(jdf_expr_t *e, const char *kind, jdf_func
             if(NULL != nr->alias)
                 nb++;
     }
-    
+
     switch( e->op ) {
     case JDF_VAR:
         vc = strdup(e->jdf_var);
@@ -1741,7 +1741,7 @@ int jdf_assign_ldef_index(jdf_function_entry_t *f)
     jdf_dep_t *dep;
 
     f->nb_max_local_def = 0;
-    
+
     /* Local definitions can appear either in the locals or in the deps/calls.
      *  If they appear in the locals, they need to have a unique position
      *  If they appear in the dataflow, each dep can re-use the locals of another dep
@@ -1749,7 +1749,7 @@ int jdf_assign_ldef_index(jdf_function_entry_t *f)
      */
 
     DO_DEBUG_VERBOSE(2, ({fprintf(stderr, "Indexing task class %s\n", f->fname);}) );
-    
+
     for(vl = f->locals; NULL != vl; vl = vl->next) {
         for( ld = vl->expr->local_variables; ld != NULL; ld = ld->next ) {
             assert(NULL != ld->alias);

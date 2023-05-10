@@ -488,7 +488,7 @@ int __parsec_complete_execution( parsec_execution_stream_t *es,
 
     /* Release the execution context */
     (void)task->task_class->release_task( es, task );
-    
+
     PARSEC_PINS(es, COMPLETE_EXEC_END, task);
 
     return rc;
@@ -860,7 +860,7 @@ int parsec_context_add_taskpool( parsec_context_t* context, parsec_taskpool_t* t
     PARSEC_PINS_TASKPOOL_INIT(tp);  /* PINS taskpool initialization */
 
     /* If the DSL did not install a termination detection module,
-     * assume that the old behavior (local detection when local 
+     * assume that the old behavior (local detection when local
      * number of tasks is 0) is expected: install the local termination
      * detection module, and declare the taskpool as ready */
     if( tp->tdm.module == NULL ) {

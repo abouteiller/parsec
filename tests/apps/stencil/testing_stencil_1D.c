@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
             fprintf(stderr, "M %d N %d MB %d NB %d P %d KP %d KQ %d cores %d iteration %d R %d m %d\n",
                     M, N, MB, NB, P, KP, KQ, cores, iter, R, m);
         }
-        exit(1); 
+        exit(1);
     }
 
     /* Used for ghost region */

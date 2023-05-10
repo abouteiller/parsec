@@ -14,7 +14,7 @@ static int ud_startup1(parsec_execution_stream_t * es,
                        struct __parsec_udf_UD_STARTUP1_task_s * this_task);
 static int ud_startup2(parsec_execution_stream_t * es,
                        struct __parsec_udf_UD_STARTUP2_task_s * this_task);
-		       
+
 static char *ud_key_print(char *buffer, size_t buffer_size, parsec_key_t __parsec_key_, void *user_data);
 static parsec_key_fn_t ud_hash_struct = {
     .key_equal = parsec_hash_table_generic_64bits_key_equal,
@@ -151,7 +151,7 @@ static int ud_startup1(parsec_execution_stream_t * es, __parsec_udf_UD_STARTUP1_
       __parsec_schedule(es, (parsec_task_t *)new_task, 0);
     }
   }
-  
+
   return PARSEC_HOOK_RETURN_DONE;
 }
 
@@ -190,10 +190,10 @@ static int ud_startup2(parsec_execution_stream_t * es, __parsec_udf_UD_STARTUP2_
       __parsec_schedule(es, (parsec_task_t *)new_task, 0);
     }
   }
-  
+
   return PARSEC_HOOK_RETURN_DONE;
 }
- 
+
 static char *ud_key_print(char *buffer, size_t buffer_size, parsec_key_t __parsec_key_, void *user_data)
 {
     const __parsec_udf_internal_taskpool_t *__parsec_tp =

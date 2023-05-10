@@ -99,7 +99,7 @@ create_vector(int me, int world, int start_rank,
     {
       int len = asprintf(&d->key_dim, "(%d)", (total_size+block_size-1)%total_size);
       if(len == -1)
-	d->key_dim = NULL;
+        d->key_dim = NULL;
       d->key_base = NULL;
       d->data_key = data_key;
     }

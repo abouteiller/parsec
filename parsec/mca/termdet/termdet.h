@@ -150,12 +150,12 @@ typedef int (*parsec_termdet_taskpool_ready_fn_t)(parsec_taskpool_t *tp);
 typedef int (*parsec_termdet_taskpool_load_fn_t)(parsec_taskpool_t *tp, int v);
 
 /**
- * @brief Signals that an application message is being sent, in relation to a 
+ * @brief Signals that an application message is being sent, in relation to a
  *   taskpool, for piggybacking
  *
  * @details This function signals the termination detection that a message
- *   is being sent in relation to a monitored taskpool. The monitor can pack 
- *   a few bytes in the message, at the given position. This call happens 
+ *   is being sent in relation to a monitored taskpool. The monitor can pack
+ *   a few bytes in the message, at the given position. This call happens
  *   when the first bytes of message are being sent (header). The process
  *   might not be busy at the time of the call, as the message is already
  *   considered to be in the network when this call happens.
@@ -175,11 +175,11 @@ typedef int (*parsec_termdet_outgoing_message_pack_fn_t)(parsec_taskpool_t *tp,
                                                          int   buffer_size);
 
 /**
- * @brief Signals that an application message is being sent, in relation to a 
+ * @brief Signals that an application message is being sent, in relation to a
  *   taskpool
  *
  * @details This function signals the termination detection that a message
- *   is being sent in relation to a monitored taskpool. This call happens 
+ *   is being sent in relation to a monitored taskpool. This call happens
  *   before the message is sent while the process is still busy because
  *   of the task that generates that message. The function can signal
  *   the runtime engine that the message must be delayed, it is then
@@ -209,12 +209,12 @@ typedef int (*parsec_termdet_outgoing_message_start_fn_t)(parsec_taskpool_t *tp,
  *    position. If the taskpool was idle, it becomes busy, and the
  *    user shall call idle again to notify that all local actions to
  *    manage this message have been completed.
- *       @param[INOUT] tp a taskpool 
- *       @param[IN] src_rank the rank of the source of the message 
+ *       @param[INOUT] tp a taskpool
+ *       @param[IN] src_rank the rank of the source of the message
  *       @param[IN] packed_buffer the packed buffer of the message
  *       @param[INOUT] position an offset in packed_buffer in which the
  *                     function may unpack information; position is
- *                     updated by the call to reflect the next available 
+ *                     updated by the call to reflect the next available
  *                     byte in packed_buffer
  *       @param[IN] buffer_size the amount of bytes available after packed_buffer
  *       @param[IN] msg the message descriptor
@@ -235,8 +235,8 @@ typedef int (*parsec_termdet_incoming_message_start_fn_t)(parsec_taskpool_t *tp,
  * @details This functions signals the termination detection algorithm
  *    that an application message that it started received is now completely
  *    received. For simplicity of usage, it is not incorrect to call
- *    on a non-monitored taskpool, the call is then ignored. 
- *       @param[INOUT] tp a taskpool 
+ *    on a non-monitored taskpool, the call is then ignored.
+ *       @param[INOUT] tp a taskpool
  *       @param[IN] msg the message descriptor
  *  @return PARSEC_SUCCESS except if a fatal error occurs.
  */
@@ -269,14 +269,14 @@ int parsec_termdet_open_dyn_module(parsec_taskpool_t *tp);
  *           local termination detection module can be loaded, a warning
  *           will be issued, as it is assumed that a global termination
  *           detection is expected by the user.
- * 
+ *
  *   @note any opened module is closed during parsec_termdet_fini
  */
 int parsec_termdet_open_module(parsec_taskpool_t *tp, char *name);
 
 /**
  * @brief Initialize the termination detection component
- * 
+ *
  * @return PARSEC_SUCCESS
  */
 int parsec_termdet_init(void);
@@ -284,7 +284,7 @@ int parsec_termdet_init(void);
 /**
  * @brief Terminates the termination detection component, and close
  *   all opened termination detection modules.
- * 
+ *
  * @return PARSEC_SUCCESS
  */
 int parsec_termdet_fini(void);

@@ -27,7 +27,7 @@ PaRSEC exposes a [public API](@ref parsec_public), that feature:
   - [Parameterized Task Graphs (PTG)](https://bitbucket.org/icldistcomp/parsec/wiki/writejdf), that
   provides an intermediate representation of the DAG of tasks at
   compile time
-  
+
 - [A runtime system](@ref parsec_public_runtime), to initialize the
 task runtime system, schedule DAGs of Tasks in it, and expose the user
 data to the task system
@@ -50,7 +50,7 @@ subdirectory of the source. It is separated in a few modules:
    runtime engine
 
 - Meta Data Management:
-   
+
    - [Data objects](@ref parsec_internal_data) represent the
    meta-information associated to each user's or temporary data blocks
    that the PaRSEC runtime engine manipulate.
@@ -93,9 +93,9 @@ code:
 
     - [PaRSEC Objects](@ref parsec_internal_classes_object)
     - [List Items](@ref parsec_internal_classes_listitem)
-	
+
  - Algorithms:
-   
+
     - [Barrier](@ref parsec_internal_classes_barrier)
     - [Dequeue](@ref parsec_internal_classes_dequeue)
     - [FIFO](@ref parsec_internal_classes_fifo)

@@ -171,7 +171,7 @@ static int flow_llp_init(parsec_execution_stream_t* es, struct parsec_barrier_t*
     es->scheduler_object = lifo;
 
     /* All local allocations are now completed. Synchronize with the other threads
-	 * before they start stealing from each other. */
+     * before they start stealing from each other. */
     parsec_barrier_wait(barrier);
 
 #if defined(PARSEC_PAPI_SDE)
@@ -442,9 +442,9 @@ repeat:
                 }
                 /* form a ring of popped items */
                 parsec_list_item_t *last = next;
-				parsec_list_item_t *prev_last = last;
+                parsec_list_item_t *prev_last = last;
                 while (last != NULL) {
-					prev_last = last;
+                    prev_last = last;
                     last = PARSEC_LIST_ITEM_NEXT(last);
                 }
                 new_ring = parsec_list_item_ring(next, prev_last);

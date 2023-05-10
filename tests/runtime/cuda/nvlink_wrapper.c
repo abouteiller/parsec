@@ -86,7 +86,7 @@ __parsec_nvlink_destructor( parsec_nvlink_taskpool_t* nvlink_taskpool)
         }
     }
     parsec_tiled_matrix_destroy( (parsec_tiled_matrix_t*)nvlink_taskpool->_g_userM );
-    
+
     free(dcA);
     free(userM);
 }
@@ -155,7 +155,7 @@ parsec_taskpool_t* testing_nvlink_New( parsec_context_t *ctx, int depth, int mb 
 
     /* GEMM1 tasks will create one data copy per GPU, and work on those.
      * see nvlink.jdf:MAKE_C tasks */
-    
+
     /* userM is a user-managed matrix: the user creates the data copies
      * only on the GPU they want the GEMM2 to run. To simplify the code,
      * we use parsec_matrix_block_cyclic that requires to also have a CPU data
@@ -207,14 +207,14 @@ parsec_taskpool_t* testing_nvlink_New( parsec_context_t *ctx, int depth, int mb 
             g++;
         }
     }
-    
+
     testing_handle = parsec_nvlink_new(dcA, userM, ctx->nb_nodes, CuHI, nb, dev_index);
 
     parsec_add2arena( &testing_handle->arenas_datatypes[PARSEC_nvlink_DEFAULT_ADT_IDX],
                              parsec_datatype_double_complex_t,
                              PARSEC_MATRIX_FULL, 1, mb, mb, mb,
                              PARSEC_ARENA_ALIGNMENT_SSE, -1 );
-    
+
     return &testing_handle->super;
 }
 

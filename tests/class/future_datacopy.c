@@ -37,7 +37,7 @@ void cb_fulfill(parsec_base_future_t * future){
     int * data = (int*)malloc(sizeof(int));
     *data = *data_in;
     parsec_future_set(future, data);
-}   
+}
 
 int cb_match(parsec_base_future_t * future, void * t1, void * t2){
     (void)future;
@@ -56,14 +56,14 @@ void cb_nested(parsec_base_future_t ** future, void * tracked_data, void * data_
     parsec_datacopy_future_t** d_fut = (parsec_datacopy_future_t**)future;
     int * data = (int*)tracked_data;
     int * specs = (int*)data_in;
-    *specs += *data; 
+    *specs += *data;
     *d_fut = PARSEC_OBJ_NEW(parsec_datacopy_future_t);
-    parsec_future_init( *d_fut, 
-                        cb_fulfill, 
+    parsec_future_init( *d_fut,
+                        cb_fulfill,
                         specs,
                         cb_match,
                         specs,
-                        cb_cleanup); 
+                        cb_cleanup);
 }
 
 
@@ -72,7 +72,7 @@ static void *do_test_no_nested(void* _param){
     int id = param[0]; //thread id
 
     for(int i = 0; i < ncopy; i++){
-        while( (data_check_out[i][id] = 
+        while( (data_check_out[i][id] =
                     parsec_future_get_or_trigger(fut_array[i],
                                                  NULL, NULL, /* nested data */
                                                  NULL, NULL /*callback not using es, tp, task */
@@ -84,10 +84,10 @@ static void *do_test_no_nested(void* _param){
 static void *do_test_nested(void* _param){
     int *param = (int*)_param;
     int id = param[0]; //thread id
-    int *specs; 
+    int *specs;
     if(id % 2 == 0) {
         for(int i = 0; i < ncopy; i++){
-            while( (data_check_out[i][id] = 
+            while( (data_check_out[i][id] =
                         parsec_future_get_or_trigger(fut_array[i],
                                                      NULL, NULL, /* nested data */
                                                      NULL, NULL /*callback not using es, tp, task */
@@ -97,13 +97,13 @@ static void *do_test_nested(void* _param){
         for(int i = 0; i < ncopy; i++){
             specs = (int*)malloc(sizeof(int));
             *specs = ncopy;
-            while( (data_check_out[i][id] = 
+            while( (data_check_out[i][id] =
                         parsec_future_get_or_trigger(fut_array[i],
                                                      cb_nested, specs, /* nested data */
                                                      NULL, NULL /*callback not using es, tp, task */
                                                      ) ) == NULL ){}
         }
-    }   
+    }
     return NULL;
 }
 
@@ -125,7 +125,7 @@ static void usage(const char *name, const char *msg)
 }
 
 int main(int argc, char* argv[])
-{  
+{
     int i, j, ch;
     void * retval;
     int flag = 0;
@@ -133,7 +133,7 @@ int main(int argc, char* argv[])
     pthread_t * threads;
     int * data_in;
 
-    /* Read in the parameters */ 
+    /* Read in the parameters */
     while( (ch = getopt(argc, argv, "c:n:h")) != -1 ) {
         switch(ch) {
             case 'c':
@@ -154,14 +154,14 @@ int main(int argc, char* argv[])
                 break;
         }
     }
-    
+
     printf("running with %d cores and %d copies\n", cores, ncopy);
     threads = calloc(sizeof(pthread_t), cores);
 
     fut_array = malloc(ncopy*sizeof(parsec_datacopy_future_t*));
     data = malloc(cores*ncopy*sizeof(int));
     int *ids = malloc(cores*sizeof(int));
-    
+
 
     data_check_out = malloc(ncopy*sizeof(int**));
     for(i=0; i< ncopy; i++){
@@ -170,19 +170,19 @@ int main(int argc, char* argv[])
         data_in = malloc(cores*sizeof(int*));
         *data_in = data[i];
         fut_array[i] = PARSEC_OBJ_NEW(parsec_datacopy_future_t);
-        parsec_future_init( fut_array[i], 
-                            cb_fulfill, 
+        parsec_future_init( fut_array[i],
+                            cb_fulfill,
                             data_in,
                             cb_match,
                             data_in,
-                            cb_cleanup); 
+                            cb_cleanup);
     }
 
     for(i=0; i< cores; i++){
         ids[i] = i;
         pthread_create(&threads[i], NULL, do_test_no_nested, &ids[i]);
     }
- 
+
     for(i=0; i< cores; i++){
         flag += pthread_join(threads[i], &retval);
     }
@@ -191,7 +191,7 @@ int main(int argc, char* argv[])
     for(i=0; i< ncopy; i++){
         for(j=1; j< cores; j++){
             if( data_check_out[i][j-1] != data_check_out[i][j] ){
-                flag = 1; 
+                flag = 1;
                 break;
             }
         }
@@ -207,19 +207,19 @@ int main(int argc, char* argv[])
         data_in = malloc(cores*sizeof(int*));
         *data_in = data[i];
         fut_array[i] = PARSEC_OBJ_NEW(parsec_datacopy_future_t);
-        parsec_future_init( fut_array[i], 
-                            cb_fulfill, 
+        parsec_future_init( fut_array[i],
+                            cb_fulfill,
                             data_in,
                             cb_match,
                             data_in,
-                            cb_cleanup); 
+                            cb_cleanup);
     }
 
     for(i=0; i< cores; i++){
         ids[i] = i;
         pthread_create(&threads[i], NULL, do_test_nested, &ids[i]);
     }
- 
+
     for(i=0; i< cores; i++){
         flag += pthread_join(threads[i], &retval);
     }
@@ -229,14 +229,14 @@ int main(int argc, char* argv[])
         for(j=2; j< cores; j++){
             if(j % 2 == 0) {
                 if( data_check_out[i][j-2] != data_check_out[i][j] ){
-                    flag = 1; 
+                    flag = 1;
                     break;
                 }
             }else{
                 if( (data_check_out[i][j-2] == data_check_out[i][j])
-                    || (*data_check_out[i][j-2] != *data_check_out[i][j]) 
+                    || (*data_check_out[i][j-2] != *data_check_out[i][j])
                     || (*data_check_out[i][j-2] != (data[i]+ncopy)) ){
-                    flag = 1; 
+                    flag = 1;
                     break;
                 }
             }
@@ -247,7 +247,7 @@ int main(int argc, char* argv[])
     if(flag == 0) {
         printf("Nested parsec_datacopy_future validated\n");
     }
-    free(threads);    
+    free(threads);
     free(ids);
     free(data);
     free(fut_array);

@@ -59,7 +59,7 @@ typedef struct {
  * The following file is auto generated with the
  * grapher_create_objects.sh script. It defines an array
  * create_functions of NB_CREATE_FUNCTIONS create_function_t, and the
- * value of NB_CREATE_FUNCTIONS. It uses the TEST_SET and TRY_SET 
+ * value of NB_CREATE_FUNCTIONS. It uses the TEST_SET and TRY_SET
  * macros.
  */
 #include "grapher_create_objects.c"

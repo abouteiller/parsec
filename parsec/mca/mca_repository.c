@@ -164,7 +164,7 @@ mca_base_component_t *mca_component_open_byname(char *type, char *name)
         return NULL;
     if( NULL != component->mca_register_component_params )
         component->mca_register_component_params();
-    
+
     return component;
 }
 

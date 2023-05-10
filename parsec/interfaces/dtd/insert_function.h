@@ -296,7 +296,7 @@ parsec_dtd_insert_task(parsec_taskpool_t  *tp,
  **/
 void*
 parsec_dtd_get_dev_ptr(parsec_task_t *this_task, int i);
-   
+
 /**
  * This function behaves exactly like parsec_dtd_insert_task()
  * except it does not insert the task in PaRSEC and just returns it.

@@ -75,7 +75,7 @@ static int flow_ap_init(parsec_execution_stream_t* es, struct parsec_barrier_t* 
         char event_name[PARSEC_PAPI_SDE_MAX_COUNTER_NAME_LEN];
         snprintf(event_name, PARSEC_PAPI_SDE_MAX_COUNTER_NAME_LEN,
                  "SCHEDULER::PENDING_TASKS::QUEUE=%d::SCHED=AP", es->virtual_process->vp_id);
-        parsec_papi_sde_register_fp_counter(event_name, PAPI_SDE_RO|PAPI_SDE_INSTANT, PAPI_SDE_int, 
+        parsec_papi_sde_register_fp_counter(event_name, PAPI_SDE_RO|PAPI_SDE_INSTANT, PAPI_SDE_int,
                                             (papi_sde_fptr_t)parsec_mca_sched_list_local_counter_length, es->virtual_process);
         parsec_papi_sde_add_counter_to_group(event_name, "SCHEDULER::PENDING_TASKS", PAPI_SDE_SUM);
         parsec_papi_sde_add_counter_to_group(event_name, "SCHEDULER::PENDING_TASKS::SCHED=AP", PAPI_SDE_SUM);

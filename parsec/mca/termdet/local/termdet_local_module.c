@@ -59,7 +59,7 @@ const parsec_termdet_module_t parsec_termdet_local_module = {
         parsec_termdet_local_taskpool_set_nb_tasks,
         parsec_termdet_local_taskpool_set_runtime_actions,
         0,
-        parsec_termdet_local_outgoing_message_start, 
+        parsec_termdet_local_outgoing_message_start,
         parsec_termdet_local_outgoing_message_pack,
         parsec_termdet_local_incoming_message_start,
         parsec_termdet_local_incoming_message_end,

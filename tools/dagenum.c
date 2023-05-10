@@ -78,7 +78,7 @@ static off_t load_single_node(char *m, off_t offset, int i, node_t *allnodes)
 
     asprintf(&s->tname, "S#%s", name);
     s->accesses = acc;
-    
+
     s->nbsucc = 1;
     s->succ = (node_t**)malloc( sizeof(node_t*) );
     s->succ[0] = e;
@@ -165,7 +165,7 @@ static nl_t *load_filenode(const char *filename, int *nbnodes)
     }
 
     munmap( m, s.st_size );
-    
+
     return r;
 }
 

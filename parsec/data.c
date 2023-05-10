@@ -329,11 +329,11 @@ int parsec_data_start_transfer_ownership_to_copy(parsec_data_t* data,
 
     copy = data->device_copies[device];
     assert( NULL != copy );
-    
+
     PARSEC_DEBUG_VERBOSE(10, parsec_debug_output,
                          "DEV[%d]: start transfer ownership of data %p to copy %p in mode %d",
                          device, data, copy, access_mode);
-    
+
     switch( copy->coherency_state ) {
     case PARSEC_DATA_COHERENCY_INVALID:
         transfer_required = 1;

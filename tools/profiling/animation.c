@@ -19,7 +19,7 @@ void startAnimation(char *filename, char *pseudo, unsigned int length)
 void addAnimation(char *data, int length, int delay)
 {
     gdImagePtr im;
-    
+
     im = gdImageCreateFromPngPtr(length, data);
     assert( im->sx == firstim->sx &&
             im->sy == firstim->sy );

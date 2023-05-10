@@ -336,7 +336,7 @@ parsec_cuda_module_init( int dev_id, parsec_device_module_t** module )
     double fp16, fp32, fp64, tf32;
     struct cudaDeviceProp prop;
 
-    show_caps_index = parsec_mca_param_find("device", NULL, "show_capabilities"); 
+    show_caps_index = parsec_mca_param_find("device", NULL, "show_capabilities");
     if(0 < show_caps_index) {
         parsec_mca_param_lookup_int(show_caps_index, &show_caps);
     }
@@ -424,7 +424,7 @@ parsec_cuda_module_init( int dev_id, parsec_device_module_t** module )
         /* Each 'exec' stream gets its own profiling stream, except IN and OUT stream that share it.
          * It's good to separate the exec streams to know what was submitted to what stream
          * We don't have this issue for the IN and OUT streams because types of event discriminate
-         * what happens where, and separating them consumes memory and increases the number of 
+         * what happens where, and separating them consumes memory and increases the number of
          * events that needs to be matched between streams because we cannot differentiate some
          * ends between IN or OUT, so they are all logged on the same stream. */
         if(j == 0 || (parsec_device_gpu_one_profiling_stream_per_gpu_stream == 1 && j != 1))
@@ -537,7 +537,7 @@ parsec_cuda_module_init( int dev_id, parsec_device_module_t** module )
 #if defined(PARSEC_PROF_TRACE)
             if( NULL != exec_stream->profiling ) {
                 /* No function to clean the profiling stream. If one is introduced
-                 * some day, remember that exec streams 0 and 1 always share the same 
+                 * some day, remember that exec streams 0 and 1 always share the same
                  * ->profiling stream, and that all of them share the same
                  * ->profiling stream if parsec_device_cuda_one_profiling_stream_per_cuda_stream == 0 */
             }
@@ -1396,7 +1396,7 @@ parsec_gpu_data_stage_in( parsec_device_cuda_module_t* cuda_device,
                              __FILE__, __LINE__);
     }
 
-    /* If data is from NEW (it doesn't have a source_repo_entry and is not a direct data collection reference), 
+    /* If data is from NEW (it doesn't have a source_repo_entry and is not a direct data collection reference),
      * and nobody has touched it yet, then we don't need to pull it in, we have created it already, that's enough. */
     if( NULL == task_data->source_repo_entry && NULL == task_data->data_in->original->dc && in_elem->version == 0 )
         transfer_from = -1;
@@ -1752,7 +1752,7 @@ parsec_gpu_send_transfercomplete_cmd_to_device(parsec_data_copy_t *copy,
     gpu_task->stage_in  = parsec_default_cuda_stage_in;
     gpu_task->stage_out = parsec_default_cuda_stage_out;
     gpu_task->ec->data[0].data_in = copy;  /* We need to set not-null in data_in, so that the fake flow is
-                                            * not ignored when poping the data from the fake task */ 
+                                            * not ignored when poping the data from the fake task */
     gpu_task->ec->data[0].data_out = copy; /* We "free" data[i].data_out if its readers reaches 0 */
     gpu_task->ec->data[0].source_repo_entry = NULL;
     gpu_task->ec->data[0].source_repo = NULL;
@@ -2005,8 +2005,8 @@ progress_stream( parsec_device_gpu_module_t* gpu_device,
             if( stream->prof_event_track_enable ) {
                 if( task->prof_key_end != -1 ) {
                     PARSEC_PROFILING_TRACE(stream->profiling, task->prof_key_end, task->prof_event_id, task->prof_tp_id, NULL);
-                } 
-            } 
+                }
+            }
 #endif /* (PARSEC_PROF_TRACE) */
 
             rc = PARSEC_HOOK_RETURN_DONE;
@@ -2404,7 +2404,7 @@ parsec_cuda_kernel_epilog( parsec_device_gpu_module_t *gpu_device,
 
         /* If it is a copy managed by the user, don't bother either */
         if( 0 == (gpu_copy->flags & PARSEC_DATA_FLAG_PARSEC_OWNED) ) continue;
-        
+
         /**
          * There might be a race condition here. We can't assume the first CPU
          * version is the corresponding CPU copy, as a new CPU-bound data
@@ -2744,7 +2744,7 @@ parsec_cuda_kernel_scheduler( parsec_execution_stream_t *es,
     gpu_device->super.executed_tasks++;
  remove_gpu_task:
     parsec_atomic_fetch_add_int64(&gpu_device->super.device_load, -gpu_task->load);
-    PARSEC_DEBUG_VERBOSE(3, parsec_gpu_output_stream,"GPU[%s]: gpu_task %p freed at %s:%d", gpu_device->super.name, 
+    PARSEC_DEBUG_VERBOSE(3, parsec_gpu_output_stream,"GPU[%s]: gpu_task %p freed at %s:%d", gpu_device->super.name,
                          gpu_task, __FILE__, __LINE__);
     free( gpu_task );
     rc = parsec_atomic_fetch_dec_int32( &(gpu_device->mutex) );
@@ -2754,7 +2754,7 @@ parsec_cuda_kernel_scheduler( parsec_execution_stream_t *es,
             PARSEC_PROFILING_TRACE( es->es_profile, parsec_gpu_own_GPU_key_end,
                                     (unsigned long)es, PROFILE_OBJECT_ID_NULL, NULL );
 #endif  /* defined(PARSEC_PROF_TRACE) */
-        PARSEC_DEBUG_VERBOSE(2, parsec_gpu_output_stream,"GPU[%s]: Leaving GPU management at %s:%d", 
+        PARSEC_DEBUG_VERBOSE(2, parsec_gpu_output_stream,"GPU[%s]: Leaving GPU management at %s:%d",
                              gpu_device->super.name, __FILE__, __LINE__);
 
         return PARSEC_HOOK_RETURN_ASYNC;

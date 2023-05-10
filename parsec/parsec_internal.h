@@ -387,7 +387,7 @@ int parsec_update_deps_with_counter_count_task(parsec_taskpool_t *tp,
                                                const parsec_task_t* PARSEC_RESTRICT origin,
                                                const parsec_flow_t* PARSEC_RESTRICT origin_flow,
                                                const parsec_flow_t* PARSEC_RESTRICT dest_flow);
-    
+
 typedef struct __parsec_internal_incarnation_s {
     int32_t                     type;
     parsec_evaluate_function_t *evaluate;
@@ -584,7 +584,7 @@ extern int device_delegate_begin, device_delegate_end;
                              (TASK)->taskpool, (TASK)->locals ), NULL), \
                            (TASK)->taskpool->taskpool_id,               \
                            (TASK)->task_class->profile_info,            \
-                           (TRACE_INFO) ? (void*)(TASK) : NULL); 
+                           (TRACE_INFO) ? (void*)(TASK) : NULL);
 
 #define PARSEC_TASK_PROF_TRACE_IF(COND, PROFILE, KEY, TASK, TRACE_INFO)  \
     if(!!(COND)) {                                                       \
@@ -599,7 +599,7 @@ extern int device_delegate_begin, device_delegate_end;
                            (TASK)->taskpool->taskpool_id,                   \
                            (TRACE_INFO) ? (TASK)->task_class->profile_info : NULL, \
                            (TRACE_INFO) ? (void*)(TASK) : NULL,             \
-                           (FLAGS)); 
+                           (FLAGS));
 #else
 #define PARSEC_TASK_PROF_TRACE(PROFILE, KEY, TASK, PROF_INFO)
 #define PARSEC_TASK_PROF_TRACE_IF(COND, PROFILE, KEY, TASK, PROF_INFO)

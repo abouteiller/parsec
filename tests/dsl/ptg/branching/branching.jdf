@@ -19,7 +19,7 @@ RW T <- A(k)
 
 BODY
     parsec_atomic_fetch_inc_int32(&nb_taskA);
-	printf("Execute TA(%d)\n", k);
+    printf("Execute TA(%d)\n", k);
 END
 
 TB(k)
@@ -32,7 +32,7 @@ RW T <- T TA(k/2)
 
 BODY
     parsec_atomic_fetch_inc_int32(&nb_taskB);
-	printf("Execute TB(%d)\n", k);
+    printf("Execute TB(%d)\n", k);
 END
 
 TC(k)
@@ -46,5 +46,5 @@ READ T2 <- T TB(2*k+1)
 
 BODY
     parsec_atomic_fetch_inc_int32(&nb_taskC);
-	printf("Execute TC(%d)\n", k);
+    printf("Execute TC(%d)\n", k);
 END

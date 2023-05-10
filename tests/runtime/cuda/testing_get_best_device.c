@@ -18,7 +18,7 @@ double sync_time_elapsed = 0.0;
  * @param [in] uplo: matrix shape
  * @param [in] m: tile row index
  * @param [in] n: tile column index
- * @param [in] args: NULL 
+ * @param [in] args: NULL
  */
 static int matrix_init_ops(parsec_execution_stream_t *es,
                         const parsec_tiled_matrix_t *descA,
@@ -138,23 +138,23 @@ int main(int argc, char *argv[])
     parsec_matrix_block_cyclic_t dcA;
     parsec_matrix_block_cyclic_init(&dcA, PARSEC_MATRIX_DOUBLE, PARSEC_MATRIX_TILE,
                                 rank, NB, NB, N, N, 0, 0,
-                                N, N, P, nodes/P, KP, KQ, 0, 0); 
+                                N, N, P, nodes/P, KP, KQ, 0, 0);
     dcA.mat = parsec_data_allocate((size_t)dcA.super.nb_local_tiles *
                                    (size_t)dcA.super.bsiz *
                                    (size_t)parsec_datadist_getsizeoftype(dcA.super.mtype));
     parsec_data_collection_set_key((parsec_data_collection_t*)&dcA, "dcA");
 
-    /* Init dcA to symmetric positive definite */ 
+    /* Init dcA to symmetric positive definite */
     parsec_apply( parsec, PARSEC_MATRIX_FULL,
                   (parsec_tiled_matrix_t *)&dcA,
                   (parsec_tiled_matrix_unary_op_t)matrix_init_ops, NULL);
 
     /* Main routines */
-    SYNC_TIME_START(); 
+    SYNC_TIME_START();
     info = parsec_get_best_device_check(parsec, (parsec_tiled_matrix_t *)&dcA);
     SYNC_TIME_PRINT(rank, ("Get_best_device" "\tN= %d NB= %d "
                            "PxQ= %d %d KPxKQ= %d %d cores= %d nb_gpus= %d\n",
-                           N, NB, P, nodes/P, KP, KQ, cores, parsec_nb_devices-2)); 
+                           N, NB, P, nodes/P, KP, KQ, cores, parsec_nb_devices-2));
 
     /* Check result */
     if( 0 == rank && info != 0 ) {

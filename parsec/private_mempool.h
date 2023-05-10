@@ -9,7 +9,7 @@
 
 #include "parsec/parsec_config.h"
 
-/** 
+/**
  *  @addtogroup parsec_internal_mempool
  *  @{
  */

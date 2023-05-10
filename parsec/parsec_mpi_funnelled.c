@@ -424,7 +424,7 @@ int parsec_mpi_sendrecv(parsec_comm_engine_t *ce,
  * Store the user provided communicator in the PaRSEC context. We need to make a
  * copy to make sure the communicator does not disappear before the communication
  * engine starts up.
- * 
+ *
  * This function is collective, all processes in the current and the new communicator
  * should call it in same time.
  */
@@ -1247,8 +1247,8 @@ mpi_no_thread_progress(parsec_comm_engine_t *ce)
 /**
  * @brief Check that the binding is correct. However, this operation is extremely expensive
  *        and highly not scalable so we should only do this operation when really necessary.
- * 
- * @param context 
+ *
+ * @param context
  * @return int SUCCESS if the global bindings are OK, error otherwise.
  */
 static int

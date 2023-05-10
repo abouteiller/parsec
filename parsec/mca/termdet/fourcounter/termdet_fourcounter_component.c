@@ -3,9 +3,9 @@
  *                         of Tennessee Research Foundation.  All rights
  *                         reserved.
  * $COPYRIGHT$
- * 
+ *
  * Additional copyrights may follow
- * 
+ *
  * $HEADER$
  *
  * These symbols are in a file by themselves to provide nice linker
@@ -50,7 +50,7 @@ const parsec_termdet_base_component_t parsec_termdet_fourcounter_component = {
         /* Component open and close functions */
         NULL, /*< No open: termdet_fourcounter is always available, no need to check at runtime */
         termdet_fourcounter_component_close,
-        termdet_fourcounter_component_query, 
+        termdet_fourcounter_component_query,
         /*< specific query to return the module and add it to the list of available modules */
         NULL, /*< No register: no parameters to the absolute priority component */
         "", /*< no reserve */
@@ -84,7 +84,7 @@ static int termdet_fourcounter_component_query(mca_base_module_t **module, int *
         PARSEC_OBJ_CONSTRUCT(&parsec_termdet_fourcounter_delayed_messages, parsec_list_t);
         parsec_termdet_fourcounter_msg_cb_registered++;
     }
-    
+
     return MCA_SUCCESS;
 }
 

@@ -3,9 +3,9 @@
  *                         of Tennessee Research Foundation.  All rights
  *                         reserved.
  * $COPYRIGHT$
- * 
+ *
  * Additional copyrights may follow
- * 
+ *
  * $HEADER$
  *
  * These symbols are in a file by themselves to provide nice linker
@@ -45,7 +45,7 @@ const parsec_termdet_base_component_t parsec_termdet_local_component = {
         /* Component open and close functions */
         NULL, /*< No open: termdet_local is always available, no need to check at runtime */
         NULL, /*< No close: open did not allocate any resource, no need to release them */
-        termdet_local_component_query, 
+        termdet_local_component_query,
         /*< specific query to return the module and add it to the list of available modules */
         NULL, /*< No register: no parameters to the absolute priority component */
         "", /*< no reserve */

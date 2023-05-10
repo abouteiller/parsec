@@ -92,7 +92,7 @@ static int flow_gd_init(parsec_execution_stream_t* es, struct parsec_barrier_t* 
         es->scheduler_object = PARSEC_OBJ_NEW(parsec_dequeue_t);
 #endif
     }
-    
+
     parsec_barrier_wait(barrier);
 
     if (es != vp->execution_streams[0]) {
@@ -105,7 +105,7 @@ static int flow_gd_init(parsec_execution_stream_t* es, struct parsec_barrier_t* 
         PARSEC_OBJ_RETAIN(LOCAL_SCHED_OBJECT(es));
 #endif
     }
-    
+
 #if defined(PARSEC_PAPI_SDE)
     if( es->th_id ) {
         char event_name[PARSEC_PAPI_SDE_MAX_COUNTER_NAME_LEN];

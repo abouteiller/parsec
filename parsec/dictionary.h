@@ -225,7 +225,7 @@ struct parsec_property_function_s {
  * Properties have a func(-tion) that is evaluated every freq completion of tasks
  */
 struct parsec_profiling_property_s {
-    parsec_hash_table_item_t            super;    
+    parsec_hash_table_item_t            super;
     parsec_profiling_index_t            type;
     int                                 accumulate;
     PARSEC_PINS_FLAG                    event;
@@ -247,7 +247,7 @@ struct parsec_profiling_task_class_s {
  * @brief Bucket of a namespace, contains a hashtable full of buckets of task_class
  */
 struct parsec_profiling_namespace_s {
-    parsec_hash_table_item_t            super;    
+    parsec_hash_table_item_t            super;
     parsec_hash_table_t                 task_classes;
 };
 

@@ -74,12 +74,12 @@ parsec_device_base_component_t parsec_device_template_component = {
     },
     NULL
 };
- 
+
 mca_base_component_t * device_template_static_component(void)
 {
     return (mca_base_component_t *)&parsec_device_template_component;
 }
- 
+
 static int
 device_template_component_query(mca_base_module_t **module, int *priority)
 {
@@ -168,14 +168,14 @@ static int device_template_component_close(void)
         rc = parsec_mca_device_remove((parsec_device_module_t*)dev);
         if( PARSEC_SUCCESS != rc ) {
             PARSEC_DEBUG_VERBOSE(0, parsec_template_output_stream,
-                                 "T[%d] Failed to unregister TEMPLATE device %d\n", 
+                                 "T[%d] Failed to unregister TEMPLATE device %d\n",
                                  dev->device_index, dev->device_index);
         }
 
         rc = parsec_device_template_module_fini((parsec_device_module_t*)dev);
         if( PARSEC_SUCCESS != rc ) {
             PARSEC_DEBUG_VERBOSE(0, parsec_template_output_stream,
-                                 "T[%d] Failed to release resources on TEMPLATE device\n", 
+                                 "T[%d] Failed to release resources on TEMPLATE device\n",
                                  dev->device_index);
         }
         free(dev);

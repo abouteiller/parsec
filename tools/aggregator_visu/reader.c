@@ -130,14 +130,14 @@ static void print_value(char *value, property_t *prop, void *buff)
     case 'f': sprintf(value, "%f", *(float*)buff); break;
     case 'd': sprintf(value, "%lf", *(double*)buff); break;
     }
-    return;        
+    return;
 }
 
 static void pretty_print_property(property_t *property, char *buffer)
 {
     char value[256];
     print_value(value, property, buffer+property->offset);
-    
+
     fprintf(stdout, "    %s:%s:%s \t %s\n",
             property->function->namespace->name,
             property->function->name,
@@ -250,7 +250,7 @@ static category_t *init_category(xmlNode *category_node)
     if (nb_namespace > 0) {
         category->name = strdup( xml_safe_cast(category_node->name) );
         category->nb_namespaces = nb_namespace;
-        category->namespaces = (namespace_t*)calloc(nb_namespace, sizeof(namespace_t));        
+        category->namespaces = (namespace_t*)calloc(nb_namespace, sizeof(namespace_t));
         xmlNode *cur_node = xmlFirstElementChild(category_node);
         int i = 0;
         fprintf(stdout, "{%s}\n", category->name);
@@ -360,7 +360,7 @@ main(int argc, char *argv[])
     shmem->nb_node_pages    = parse_int(pages_per_nd_node);
     shmem->nb_vp_pages      = parse_int(pages_per_vp_node);
     shmem->nb_eu_pages      = parse_int(pages_per_eu_node);
-    
+
     per_nd_node = findNode(application_node, "per_nd_properties");
     per_vp_node = findNode(application_node, "per_vp_properties");
     per_eu_node = findNode(application_node, "per_eu_properties");
@@ -377,7 +377,7 @@ main(int argc, char *argv[])
             do {
                 pretty_print(shmem);
 
-                sleep(1);                
+                sleep(1);
                 shmem->running = ((int*)shmem->buffer)[1];
             } while(shmem->running);
         } else fprintf(stdout, "%s", shmem->header);

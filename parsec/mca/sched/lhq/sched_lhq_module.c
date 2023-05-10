@@ -143,18 +143,18 @@ static int flow_lhq_init(parsec_execution_stream_t* ces, struct parsec_barrier_t
             parsec_execution_stream_t *es;
             parsec_mca_sched_local_queues_scheduler_object_t* sched_obj;
             vp = ces->virtual_process;
-        
+
             snprintf(event_name, 256, "SCHEDULER::PENDING_TASKS::QUEUE=%d/overflow::SCHED=LHQ",
                      vp->vp_id);
             parsec_papi_sde_register_fp_counter(event_name, PAPI_SDE_RO|PAPI_SDE_INSTANT,
                                          PAPI_SDE_int, (papi_sde_fptr_t)parsec_mca_sched_system_queue_length, vp);
             parsec_papi_sde_add_counter_to_group(event_name, "SCHEDULER::PENDING_TASKS", PAPI_SDE_SUM);
             parsec_papi_sde_add_counter_to_group(event_name, "SCHEDULER::PENDING_TASKS::SCHED=LHQ", PAPI_SDE_SUM);
-            
+
             for(t = 0; t < vp->nb_cores; t++) {
                 es = vp->execution_streams[t];
                 sched_obj = (parsec_mca_sched_local_queues_scheduler_object_t*)es->scheduler_object;
-                
+
                 for(int level = 0; level < sched_obj->nb_hierarch_queues; level++) {
                     int idx = sched_obj->nb_hierarch_queues - 1 - level;
                     int m = parsec_hwloc_master_id(level, es->th_id);

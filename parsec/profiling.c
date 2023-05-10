@@ -563,7 +563,7 @@ int parsec_profiling_init( int process_id )
 #if defined(PARSEC_PROFILING_USE_HELPER_THREAD)
     io_helper_thread_init();
 #endif
-    
+
     __profile_initialized = 1; //* confirmed */
     return 0;
 }
@@ -706,7 +706,7 @@ int parsec_profiling_fini( void )
     pthread_mutex_unlock(&cmd_queue.lock);
     pthread_join(io_helper_thread_id, NULL);
 #endif
-    
+
     if( parsec_profiling_show_profiling_performance ) {
         parsec_profiling_perf_t *pa = parsec_profiling_global_perf;
         char *ti;

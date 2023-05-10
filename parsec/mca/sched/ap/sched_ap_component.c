@@ -3,9 +3,9 @@
  *                         of Tennessee Research Foundation.  All rights
  *                         reserved.
  * $COPYRIGHT$
- * 
+ *
  * Additional copyrights may follow
- * 
+ *
  * $HEADER$
  *
  * These symbols are in a file by themselves to provide nice linker
@@ -49,7 +49,7 @@ const parsec_sched_base_component_t parsec_sched_ap_component = {
         /* Component open and close functions */
         NULL, /*< No open: sched_ap is always available, no need to check at runtime */
         NULL, /*< No close: open did not allocate any resource, no need to release them */
-        sched_ap_component_query, 
+        sched_ap_component_query,
         /*< specific query to return the module and add it to the list of available modules */
         sched_ap_component_register, /*< Register at least the SDE event names */
         "", /*< no reserve */

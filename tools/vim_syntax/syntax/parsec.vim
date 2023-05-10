@@ -1,9 +1,9 @@
 
 " Vim syntax file
-" Language:	    PaRSEC
-" Maintainer:	
-" Last change:	
-" File Types:	.jdf
+" Language: PaRSEC
+" Maintainer:
+" Last change:
+" File Types: .jdf
 
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded

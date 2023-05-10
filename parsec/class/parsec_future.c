@@ -46,7 +46,7 @@ static void parsec_base_future_set(parsec_base_future_t* future, void* data)
 
 static void* parsec_base_future_get(parsec_base_future_t* future)
 {
-    /* 
+    /*
      * blocking get
      * TODO: Don't do busy wait
      * */
@@ -72,7 +72,7 @@ static void parsec_base_future_init(parsec_base_future_t* future, parsec_future_
 static void parsec_countable_future_set(parsec_base_future_t* future, void* data)
 {
     (void) data; /* not used since can't guarantee order between the sets */
-    parsec_countable_future_t* c_fut = (parsec_countable_future_t*)future; 
+    parsec_countable_future_t* c_fut = (parsec_countable_future_t*)future;
     if(0 == parsec_atomic_fetch_dec_int32(&(c_fut->count))-1){
         c_fut->super.status |= PARSEC_DATA_FUTURE_STATUS_COMPLETED;
         if( NULL != future->cb_fulfill ){

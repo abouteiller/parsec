@@ -68,8 +68,8 @@ typedef volatile struct parsec_atomic_rwlock_s {
 
 /**
  * Simple RWLock based on 2 locks
- * (e.g. http://www.springer.com/us/book/9783642320262) 
- * implementation based on two atomic locks. This is write-preferring. 
+ * (e.g. http://www.springer.com/us/book/9783642320262)
+ * implementation based on two atomic locks. This is write-preferring.
  */
 typedef struct parsec_atomic_rwlock_s {
     parsec_atomic_lock_t r;  /**< Lock taken by readers to update nbreaders */
@@ -127,7 +127,7 @@ void parsec_atomic_rwlock_init(parsec_atomic_rwlock_t *L);
 /**
  * @brief Take a read-lock of a Readers-Writer Lock
  *
- * @details If no writer or if some reader has the lock, 
+ * @details If no writer or if some reader has the lock,
  *          allows the calling reader to enter the critical section.
  *          Other readers will be allowed to enter it, but writers
  *          are prevented to enter the section until all readers have
@@ -151,7 +151,7 @@ void parsec_atomic_rwlock_rdunlock(parsec_atomic_rwlock_t *L);
 /**
  * @brief Take a write-lock of a Readers-Writer Lock
  *
- * @details If no reader and if no writer reader has the lock, 
+ * @details If no reader and if no writer reader has the lock,
  *          allows the calling writer to enter the critical section.
  *          Other writers and readers are prevented to enter it until
  *          that writer leaves the critical section.

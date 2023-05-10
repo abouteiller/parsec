@@ -42,7 +42,7 @@ struct tree_dist_node_s {
     int32_t l;
 
     parsec_hash_table_item_t ht_item;
-    
+
     parsec_data_t *data;
     int rank, vpid;
 };

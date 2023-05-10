@@ -94,7 +94,7 @@ typedef int   (*parsec_device_memory_release_f)(parsec_device_module_t*);
  *  All advices can be ignored by any device. They are used to optimize
  *   usage and performance.
  *
- *  cmd can be 
+ *  cmd can be
  *
  *    PARSEC_DEV_DATA_ADVICE_PREFETCH: a data copy of data should be
  *        sent to dev. If the device has an old copy of data, a fresh
@@ -192,7 +192,7 @@ extern int parsec_mca_device_attach(parsec_context_t*);
  */
 extern int parsec_mca_device_registration_complete(parsec_context_t*);
 /**
- * Return a positive value if the devices configurations has been completed 
+ * Return a positive value if the devices configurations has been completed
  * by a prior call to parsec_mca_device_registration_complete().
  */
 extern int parsec_mca_device_registration_completed(parsec_context_t*);

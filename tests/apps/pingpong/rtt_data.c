@@ -116,7 +116,7 @@ parsec_data_collection_t *create_and_distribute_data(int rank, int world, int si
     {
       int len = asprintf(&d->key_dim, "(%d)", world);
       if( -1 == len )
-	d->key_dim = NULL;
+      d->key_dim = NULL;
     }
 #endif
     parsec_type_create_contiguous(size, parsec_datatype_uint8_t, &d->default_dtt);

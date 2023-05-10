@@ -98,7 +98,7 @@ static void check_translate_outoforder(parsec_lifo_t *l1,
         seen[elt->base] = 1;
     }
     /* No need to check that seen[e] == 1 for all e: this is captured by if (NULL == elt) */
-    if( (elt = (elt_t*)parsec_lifo_pop( l1 )) != NULL ) 
+    if( (elt = (elt_t*)parsec_lifo_pop( l1 )) != NULL )
         fatal(" ! Error: unexpected element of base %u in %s: it should be empty\n",
               elt->base, lifo1name);
 }
@@ -312,7 +312,7 @@ int main(int argc, char *argv[])
     ch = 0;
     while( !parsec_lifo_is_empty( &lifo2 ) ) {
         elt = (elt_t*)parsec_lifo_pop( &lifo2 );
-        if( elt == NULL ) 
+        if( elt == NULL )
             fatal(" ! Error: list lifo2 is supposed to be non empty, but it is!\n");
         if( elt == p )
             fatal(" ! I keep poping the same element in the list at element %u... It is now officially a frying pan\n",

@@ -106,8 +106,8 @@ static inline void parsec_mca_sched_push_in_buffer_wrapper(void *store, parsec_l
  * (if the elements were removed by other threads), or negative (if that
  * thread removed more elements than it added).
  *
- * There are two implementations: one when SDE is enabled, the other, 
- * that removes the counter and the additional dereference if SDE is 
+ * There are two implementations: one when SDE is enabled, the other,
+ * that removes the counter and the additional dereference if SDE is
  * disabled
  */
 

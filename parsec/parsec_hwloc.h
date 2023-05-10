@@ -142,7 +142,7 @@ typedef int hwloc_cpuset_t;
 int parsec_hwloc_bind_on_mask_index(hwloc_cpuset_t mask_index);
 
 /**
- * Allow serial thread binding per core to use the SMT/HT capabilities of the processor 
+ * Allow serial thread binding per core to use the SMT/HT capabilities of the processor
  *
  */
 int parsec_hwloc_allow_ht(int htnb);

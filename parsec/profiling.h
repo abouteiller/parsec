@@ -132,7 +132,7 @@ extern "C" {
  * the profiling.
  */
 typedef struct parsec_profiling_stream_s parsec_profiling_stream_t;
-    
+
 /**
  * @brief Initializes the profiling engine.
  *
@@ -170,12 +170,12 @@ void parsec_profiling_start(void);
  *  @param[IN] pcomm: a pointer to the communicator handle to
  *       use.
  *
- *  @remark 
+ *  @remark
  *     - this call is a collective on *pcomm. The process calls
  *       MPI_Comm_dup on *pcomm during this call
  *     - the duplicate of the communicator is MPI_Comm_free(d) when
- *       parsec_profiling_fini is called. 
- *     - If parsec_profiling_otf2_set_comm is not called before 
+ *       parsec_profiling_fini is called.
+ *     - If parsec_profiling_otf2_set_comm is not called before
  *       parsec_profiling_init, MPI_COMM_WORLD is used by default.
  *     - Only local MPI calls are issued in all other functions, so
  *       any MPI threading model should be supported.
@@ -326,7 +326,7 @@ int parsec_profiling_trace_flags(parsec_profiling_stream_t* context, int key,
 
 /**
  * @brief Type of user functions to write info in pre-allocated event
- * 
+ *
  * @details
  *    @param[out] dst  address into which to write the info
  *    @param[in] data  pointer passed to parsec_profiling_trace_flags_fn_info
@@ -404,7 +404,7 @@ int parsec_profiling_ts_trace_flags_info_fn(int key, uint64_t event_id, uint32_t
  *                      with one file per process that calls this function. The
  *                      process_id is the one passed to @ref parsec_proflinig_init().
  * @param[in] hr_id   human readable global identifier associated with this
- *                      profile. This string is used to uniquely identify the experiment, 
+ *                      profile. This string is used to uniquely identify the experiment,
  *                      and all processes calling this function must use the same string.
  * @return 0 if success, negative otherwise.
  * @remark not thread safe.

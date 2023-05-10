@@ -224,8 +224,8 @@ static int parsec_dtd_taskpool_leave_wait(parsec_taskpool_t* tp, void*_)
     parsec_termdet_open_module(tp, "local");
     tp->tdm.module->monitor_taskpool(tp, parsec_taskpool_termination_detected);
     tp->tdm.module->taskpool_set_nb_tasks(tp, 0);
-    tp->tdm.module->taskpool_set_runtime_actions(tp, 0); 
-    
+    tp->tdm.module->taskpool_set_runtime_actions(tp, 0);
+
     /* We are re-attached to the context */
     parsec_atomic_fetch_inc_int32(&tp->context->active_taskpools);
     return PARSEC_SUCCESS;
@@ -721,7 +721,7 @@ parsec_dtd_add_profiling_info(parsec_taskpool_t *tp,
 }
 
 void
-parsec_dtd_add_profiling_info_generic(parsec_taskpool_t *tp, 
+parsec_dtd_add_profiling_info_generic(parsec_taskpool_t *tp,
                                       const char *name,
                                       int *keyin, int *keyout)
 {
@@ -741,7 +741,7 @@ void *parsec_dtd_task_profile_info(void *dst, const void *task_, size_t size)
     parsec_dtd_task_param_t *param = GET_HEAD_OF_PARAM_LIST(task);
 
     assert( task->super.task_class->task_class_type == PARSEC_TASK_CLASS_TYPE_DTD );
-    
+
     memcpy(dst, &task->super.prof_info, sizeof(parsec_task_prof_info_t));
     ptr = dst + sizeof(parsec_task_prof_info_t);
 
@@ -750,7 +750,7 @@ void *parsec_dtd_task_profile_info(void *dst, const void *task_, size_t size)
             assert( ptr-dst < (intptr_t)size ); (void)size;
             memcpy(ptr, param->pointer_to_tile, param->arg_size);
             ptr += param->arg_size;
-        } 
+        }
         param = param->next;
     }
 
@@ -767,7 +767,7 @@ static char* parsec_dtd_task_snprintf(char *buffer, size_t buffer_size, const pa
 
     char *b = buffer;
     int ret, remaining = buffer_size;
-    
+
     ret = snprintf(b, remaining, "%s(", tc->name);
     if(ret < 0) {
         *b = '\0';
@@ -939,7 +939,7 @@ parsec_dtd_insert_task_class(parsec_dtd_taskpool_t *tp,
     char *info_str = NULL;
     int info_size = 0;
 #endif
-    
+
     if(tc->super.task_class_id != UINT8_MAX) {
         parsec_warning("Task class %s (%p) has invalid or already defined task_class_id",
                         (void*)tc, tc->super.name);
@@ -995,14 +995,14 @@ parsec_dtd_insert_task_class(parsec_dtd_taskpool_t *tp,
             }
         }
     }
- 
+
     if(NULL == info_str) {
         tc->super.profile_info = parsec_task_profile_info;
         parsec_dtd_add_profiling_info(&tp->super, tc->super.task_class_id, tc->super.name);
     } else {
         char *fc = fill_color(tc->super.task_class_id, PARSEC_DTD_NB_TASK_CLASSES);
         parsec_profiling_add_dictionary_keyword(tc->super.name, fc,
-                                                sizeof(parsec_task_prof_info_t)+info_size, 
+                                                sizeof(parsec_task_prof_info_t)+info_size,
                                                 info_str,
                                                 (int *)&PARSEC_PROF_FUNC_KEY_START(&tp->super, tc->super.task_class_id),
                                                 (int *)&PARSEC_PROF_FUNC_KEY_END(&tp->super, tc->super.task_class_id));
@@ -2127,7 +2127,7 @@ parsec_dtd_create_task_classv(const char *name,
             (flow_count * sizeof(parsec_dtd_descendant_info_t)) +
             (flow_count * sizeof(parsec_dtd_flow_info_t)) +
             (nb_params * sizeof(parsec_dtd_task_param_t)) +
-            total_size_of_param); 
+            total_size_of_param);
 
     parsec_mempool_construct(&dtd_tc->context_mempool,
                              PARSEC_OBJ_CLASS(parsec_dtd_task_t), total_size,

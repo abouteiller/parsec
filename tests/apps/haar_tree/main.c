@@ -234,7 +234,7 @@ int main(int argc, char *argv[])
     PARSEC_CHECK_ERROR(rc, "parsec_context_start");
     rc = parsec_context_wait(parsec);
     PARSEC_CHECK_ERROR(rc, "parsec_context_wait");
-        
+
     project->arenas_datatypes[PARSEC_project_DEFAULT_ADT_IDX].arena = NULL;
     parsec_taskpool_free(&project->super);
     ret = 0;

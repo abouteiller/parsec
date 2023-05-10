@@ -151,7 +151,7 @@ PARSEC_DECLSPEC  void parsec_argv_free(char **argv);
 PARSEC_DECLSPEC  char **parsec_argv_split(const char *src_string, int delimiter);
 
 /**
- * Split a string into a NULL-terminated argv array. Include empty 
+ * Split a string into a NULL-terminated argv array. Include empty
  * strings in result array.
  *
  * @param src_string Input string.
@@ -249,7 +249,7 @@ PARSEC_DECLSPEC  char **parsec_argv_copy(char **argv);
  * free()ed (it is assumed that the argv "owns" the memory that
  * the pointer points to).
  */
-PARSEC_DECLSPEC  int parsec_argv_delete(int *argc, char ***argv, 
+PARSEC_DECLSPEC  int parsec_argv_delete(int *argc, char ***argv,
                                       int start, int num_to_delete);
 
 /**

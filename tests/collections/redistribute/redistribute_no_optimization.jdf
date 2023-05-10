@@ -54,19 +54,19 @@ CORE_redistribute_no_optimization_update(DTYPE *T, DTYPE *NW, DTYPE *NE, DTYPE *
         if( n_Y == n_Y_start ){
             i_start_T = offset_row;
             j_start_T = offset_col;
-	    MOVE_SUBMATRIX(TL_row, TL_col, NW, i_start+R, j_start+R, mb_Y, T, i_start_T, j_start_T, mb_T);
+            MOVE_SUBMATRIX(TL_row, TL_col, NW, i_start+R, j_start+R, mb_Y, T, i_start_T, j_start_T, mb_T);
         }
         /* North bar*/
         else if( (n_Y > n_Y_start) && (n_Y < n_Y_end) ){
             i_start_T = offset_row;
             j_start_T = offset_col + TL_col + (n_Y - n_Y_start - 1) * nb_Y_INNER;
-	    MOVE_SUBMATRIX(TL_row, nb_Y_INNER, N, i_start+R, R, mb_Y, T, i_start_T, j_start_T, mb_T);
+            MOVE_SUBMATRIX(TL_row, nb_Y_INNER, N, i_start+R, R, mb_Y, T, i_start_T, j_start_T, mb_T);
         }
         /* North east corner */
         else if( (n_Y == n_Y_end) && (n_Y_start != n_Y_end) ){
             i_start_T = offset_row;
             j_start_T = offset_col + TL_col + (n_Y_end - n_Y_start - 1) * nb_Y_INNER;
-	    MOVE_SUBMATRIX(TL_row, BR_col, NE, i_start+R, R, mb_Y, T, i_start_T, j_start_T, mb_T);
+            MOVE_SUBMATRIX(TL_row, BR_col, NE, i_start+R, R, mb_Y, T, i_start_T, j_start_T, mb_T);
         }
     }
 
@@ -75,19 +75,19 @@ CORE_redistribute_no_optimization_update(DTYPE *T, DTYPE *NW, DTYPE *NE, DTYPE *
         if( n_Y == n_Y_start ){
             i_start_T = offset_row + TL_row + (m_Y - m_Y_start - 1) * mb_Y_INNER;
             j_start_T = offset_col;
-	    MOVE_SUBMATRIX(mb_Y_INNER, TL_col, W, R, j_start+R, mb_Y, T, i_start_T, j_start_T, mb_T);
+            MOVE_SUBMATRIX(mb_Y_INNER, TL_col, W, R, j_start+R, mb_Y, T, i_start_T, j_start_T, mb_T);
         }
         /* Inner tile*/
         else if( (n_Y > n_Y_start) && (n_Y < n_Y_end) ){
             i_start_T = offset_row + TL_row + (m_Y - m_Y_start - 1) * mb_Y_INNER;
             j_start_T = offset_col + TL_col + (n_Y - n_Y_start - 1) * nb_Y_INNER;
-	    MOVE_SUBMATRIX(mb_Y_INNER, nb_Y_INNER, I, R, R, mb_Y, T, i_start_T, j_start_T, mb_T);
+            MOVE_SUBMATRIX(mb_Y_INNER, nb_Y_INNER, I, R, R, mb_Y, T, i_start_T, j_start_T, mb_T);
         }
         /* East bar*/
         else if( (n_Y == n_Y_end) && (n_Y_start != n_Y_end) ){
             i_start_T = offset_row + TL_row + (m_Y - m_Y_start - 1) * mb_Y_INNER;
             j_start_T = offset_col + TL_col + (n_Y_end - n_Y_start - 1) * nb_Y_INNER;
-	    MOVE_SUBMATRIX(mb_Y_INNER, BR_col, E, R, R, mb_Y, T, i_start_T, j_start_T, mb_T);
+            MOVE_SUBMATRIX(mb_Y_INNER, BR_col, E, R, R, mb_Y, T, i_start_T, j_start_T, mb_T);
         }
     }
 
@@ -96,19 +96,19 @@ CORE_redistribute_no_optimization_update(DTYPE *T, DTYPE *NW, DTYPE *NE, DTYPE *
         if( n_Y == n_Y_start ){
             i_start_T = offset_row + TL_row + (m_Y_end - m_Y_start - 1) * mb_Y_INNER;
             j_start_T = offset_col;
-	    MOVE_SUBMATRIX(BR_row, TL_col, SW, R, j_start+R, mb_Y, T, i_start_T, j_start_T, mb_T);
+            MOVE_SUBMATRIX(BR_row, TL_col, SW, R, j_start+R, mb_Y, T, i_start_T, j_start_T, mb_T);
         }
         /* South bar*/
         else if( (n_Y > n_Y_start) && (n_Y < n_Y_end) ){
             i_start_T = offset_row + TL_row + (m_Y_end - m_Y_start - 1) * mb_Y_INNER;
             j_start_T = offset_col + TL_col + (n_Y - n_Y_start - 1) * nb_Y_INNER;
-	    MOVE_SUBMATRIX(BR_row, nb_Y_INNER, S, R, R, mb_Y, T, i_start_T, j_start_T, mb_T);
+            MOVE_SUBMATRIX(BR_row, nb_Y_INNER, S, R, R, mb_Y, T, i_start_T, j_start_T, mb_T);
         }
         /* South east corner */
         else if( (n_Y == n_Y_end) && (n_Y_start != n_Y_end) ){
             i_start_T = offset_row + TL_row + (m_Y_end - m_Y_start - 1) * mb_Y_INNER;
             j_start_T = offset_col + TL_col + (n_Y_end - n_Y_start - 1) * nb_Y_INNER;
-	    MOVE_SUBMATRIX(BR_row, BR_col, SE, R, R, mb_Y, T, i_start_T, j_start_T, mb_T);
+            MOVE_SUBMATRIX(BR_row, BR_col, SE, R, R, mb_Y, T, i_start_T, j_start_T, mb_T);
         }
     }
 }
@@ -434,9 +434,9 @@ parsec_redistribute_no_optimization_New(parsec_tiled_matrix_t *dcY,
                                 PARSEC_ARENA_ALIGNMENT_SSE, -1 );
 
     parsec_add2arena(&taskpool->arenas_datatypes[PARSEC_redistribute_no_optimization_SOURCE_ADT_IDX],
-		    MY_TYPE, PARSEC_MATRIX_FULL,
-		    1, dcY->mb, dcY->nb, dcY->mb,
-		    PARSEC_ARENA_ALIGNMENT_SSE, -1 );
+                    MY_TYPE, PARSEC_MATRIX_FULL,
+                    1, dcY->mb, dcY->nb, dcY->mb,
+                    PARSEC_ARENA_ALIGNMENT_SSE, -1 );
 
     return redistribute_no_optimization_taskpool;
 }

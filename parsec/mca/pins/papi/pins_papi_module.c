@@ -123,8 +123,8 @@ static void pins_init_papi(parsec_context_t * master_context)
                                      "PAPI events to be gathered at both socket and core level with task and/or time based frequency.\n",
                                      false, false,
                                      "", &mca_param_string);
-    /* We delay interpreting the mca_param_string to later (in pins_thread_init_papi), 
-     * to give a chance to MCA modules that may declare counters to publish them into 
+    /* We delay interpreting the mca_param_string to later (in pins_thread_init_papi),
+     * to give a chance to MCA modules that may declare counters to publish them into
      * PAPI before we look for them */
 }
 
@@ -248,7 +248,7 @@ static void pins_thread_init_papi(parsec_execution_stream_t* es)
         pins_papi_events = parsec_pins_papi_events_new(mca_param_string);
     }
     parsec_barrier_wait( &es->virtual_process->parsec_context->barrier );
-    
+
     if( NULL == pins_papi_events ) /* There aren't any events, so nothing to do. */
         return;
 

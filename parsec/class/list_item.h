@@ -24,7 +24,7 @@
  *    parsec_internal_classes_list, @ref parsec_internal_classes_lifo,
  *    @ref parsec_internal_classes_fifo, for examples of data structures
  *    that use list items.
- * 
+ *
  *    Functions and macros in this group are used to manipulate the
  *    list items.
  */
@@ -61,7 +61,7 @@ PARSEC_DECLSPEC PARSEC_OBJ_CLASS_DECLARATION(parsec_list_item_t);
  */
 #define PARSEC_LIST_ITEM_PREV(item) ((__typeof__(item))(((parsec_list_item_t*)(item))->list_prev))
 
-/** 
+/**
  * @brief
  *  Make a well formed singleton ring with a list item.
  *
@@ -92,7 +92,7 @@ parsec_list_item_singleton( parsec_list_item_t* item )
  * @details
  *  Starting with first, ending with last, returns first.
  *    if first->last is not a valid chain of items, result is undetermined
- *    in PARSEC_DEBUG_PARANOID mode, attached items are detached, must be reattached if needed 
+ *    in PARSEC_DEBUG_PARANOID mode, attached items are detached, must be reattached if needed
  * @param[inout] first the first item of the chain
  * @param[inout] last the last item of the chain
  * @return first after it has been chained to last to make a ring

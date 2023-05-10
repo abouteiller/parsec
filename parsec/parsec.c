@@ -1540,7 +1540,7 @@ parsec_update_deps_with_counter(parsec_taskpool_t *tp,
     (void)origin;
     (void)origin_flow;
     (void)dest_flow;
-    
+
     if( 0 == *deps ) {
         dep_new_value = parsec_check_IN_dependencies_with_counter(tp, task) - 1;
         if( parsec_atomic_cas_int32( deps, 0, dep_new_value ) == 1 )

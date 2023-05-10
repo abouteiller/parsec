@@ -17,7 +17,7 @@ BEGIN_C_DECLS
 /**
  * This module inspects the profiling dictionary on every event, looking for the corresponding task/event.
  * when found as a property to export to the user, the module will evaluate a function associated to the
- * property and write it down to a shared memory area. 
+ * property and write it down to a shared memory area.
  */
 
 /**

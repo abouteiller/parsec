@@ -473,7 +473,7 @@ int main(int argc, char **argv)
 
     /* Enable the communication engine */
     ce->enable(ce);
-    
+
     /* To make sure all the ranks have the tags registered */
     MPI_Barrier(MPI_COMM_WORLD);
 

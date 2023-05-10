@@ -4,7 +4,7 @@
  *                         reserved.
  */
 
-/* Warning: 
+/* Warning:
  *  as of May 10, 2018, this file has not been tested, for lack of target architecture */
 
 #ifndef __PPC

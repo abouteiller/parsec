@@ -86,13 +86,13 @@ static parsec_key_fn_t parsec_grapher_data_key_fns = {
 void parsec_prof_grapher_init(const parsec_context_t *parsec_context, const char *filename)
 {
     (void)parsec_context;
-    
+
     parsec_mca_param_reg_int_name("parsec_prof_grapher", "memmode", "How memory references are traced in the DAG of tasks "
                                  "(default is 0, possible values are 0: no tracing of memory references, 1: trace only the "
                                   "direct memory references, 2: trace memory references even when data is passed from task "
                                   "to task)",
                                   false, false, parsec_prof_grapher_memmode, &parsec_prof_grapher_memmode);
-    
+
     grapher_file = fopen(filename, "w");
     if( NULL == grapher_file ) {
         parsec_warning("Grapher:\tunable to create %s (%s) -- DOT graphing disabled", filename, strerror(errno));
@@ -237,7 +237,7 @@ void  parsec_prof_grapher_data_output(const struct parsec_task_s *task, const st
         parsec_prof_grapher_dataid( data, did, 128 );
         fprintf(grapher_file, "%s -> %s [label=\"%s\"]\n", tid, did, flow->name);
         fflush(grapher_file);
-    }    
+    }
 }
 
 static void parsec_grapher_data_ht_free_elt(void *_item, void *table)

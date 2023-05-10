@@ -93,7 +93,7 @@ parsec_data_collection_t *create_and_distribute_data(int rank, int world, int si
 {
     my_datatype_t *m = (my_datatype_t*)calloc(1, sizeof(my_datatype_t));
     parsec_data_collection_t *d = &(m->super);
-    
+
     d->myrank = rank;
     d->nodes  = world;
     d->rank_of = rank_of;
@@ -103,7 +103,7 @@ parsec_data_collection_t *create_and_distribute_data(int rank, int world, int si
     {
       int len = asprintf(&d->key_dim, "(%d)", size);
       if( -1 == len )
-	d->key_dim = NULL;
+        d->key_dim = NULL;
       d->key_base = strdup("A");
       d->data_key = data_key;
     }

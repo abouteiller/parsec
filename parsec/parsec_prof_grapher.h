@@ -25,7 +25,7 @@ struct parsec_data_s;
  *
  * parsec_context is the context to graphe (currently, only one context at the time
  *                       is supported)
- * filename is a unique filename (the caller is responsible to ensure lack 
+ * filename is a unique filename (the caller is responsible to ensure lack
  *                       of collision between ranks)
  */
 void  parsec_prof_grapher_init(const parsec_context_t *parsec_context, const char *filename);

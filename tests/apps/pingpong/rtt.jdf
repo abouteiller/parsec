@@ -19,8 +19,8 @@ RW T <- (k ==0) ? A(k % WS) : T PING(k-1)
 ; 0
 
 BODY
-	/* 
-	int r; MPI_Comm_rank(MPI_COMM_WORLD, &r);
-	printf("%d: PING(%d)\n", r, k);
- 	*/
+#if 0
+    int r; MPI_Comm_rank(MPI_COMM_WORLD, &r);
+    printf("%d: PING(%d)\n", r, k);
+#endif
 END

@@ -15,19 +15,19 @@
  *
  * @brief Future structures that provide async and callback mechanism
  *
- * @details A simple future structure that provides similar functionality 
+ * @details A simple future structure that provides similar functionality
  *          to C++ Promise/Future structure. Set function, blocking get
- *          function and an async callback APIs are provided. Extension 
+ *          function and an async callback APIs are provided. Extension
  *          to countable future is provided as well
  *
- * @remark Base future will allow one set to ready state, and contain the 
- *         value. The countable future extension allows a way to 
+ * @remark Base future will allow one set to ready state, and contain the
+ *         value. The countable future extension allows a way to
  *         aggregate a set of events for a trigger event
  *
  *
  */
 
-#include <stdarg.h> 
+#include <stdarg.h>
 #include "parsec/parsec_config.h"
 #include "parsec/sys/atomic.h"
 #include "parsec/class/parsec_object.h"

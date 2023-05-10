@@ -4,7 +4,7 @@
  *                         reserved.
  */
 
-/* Warning: 
+/* Warning:
  *  as of May 10, 2018, this file has not been tested, for lack of target architecture */
 
 /* Memory Barriers */
@@ -65,14 +65,14 @@ int parsec_atomic_cas_int128(volatile __int128_t* location,
     cmp_lo = *(uint64_t*)&old_value;
     with_hi = (int64_t)(new_value >> 64);
     with_lo = *(uint64_t*)&new_value;
-    
+
     __asm__ __volatile__ (
                           "lock cmpxchg16b %1  \n\t"
                           "setz %0             \n\t"
                           : "=qm" ( ret ), "+m" ( *location ), "+d" ( cmp_hi ), "+a" ( cmp_lo )
                           : "c" ( with_hi ), "b" ( with_lo )
                           : "memory", "cc");
-   
+
    return (int)ret;
 }
 #endif

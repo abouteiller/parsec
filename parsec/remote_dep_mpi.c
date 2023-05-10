@@ -2086,8 +2086,8 @@ remote_dep_mpi_get_end_cb(parsec_comm_engine_t *ce,
  * configuration has been noticed. This allows the full reconfiguration of the
  * communication engine, including the allocation of the necessary structures on
  * the correct memory node.
- * 
- * @param context 
+ *
+ * @param context
  * @return int mostly PARSEC_SUCCESS
  */
 int remote_dep_ce_reconfigure(parsec_context_t* context)

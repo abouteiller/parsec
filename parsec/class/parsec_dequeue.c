@@ -7,6 +7,6 @@
 #include "parsec/parsec_config.h"
 #include "parsec/class/dequeue.h"
 
-PARSEC_OBJ_CLASS_INSTANCE(parsec_dequeue_t, parsec_list_t, 
+PARSEC_OBJ_CLASS_INSTANCE(parsec_dequeue_t, parsec_list_t,
                    NULL, NULL);
 

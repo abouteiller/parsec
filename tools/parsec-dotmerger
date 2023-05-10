@@ -276,12 +276,12 @@ sub onNodes {
           $taskfct->($ID, $R, $V, $T, $K, $P, $op, $p, $tooltip);
         }
       } else {
-	my ($DC, $KEY, $LABEL);
-	if ( ($DC, $KEY, $LABEL) = ($line =~ /^([^_]+)_([^ ]+) \[label="([^"]+)"/ ) ) {
-	  $memfct->($DC, $KEY, $LABEL);
-	} else {
-	  print STDERR "  Error on $f:$lnb malformed line $line\n";
-	}
+        my ($DC, $KEY, $LABEL);
+        if ( ($DC, $KEY, $LABEL) = ($line =~ /^([^_]+)_([^ ]+) \[label="([^"]+)"/ ) ) {
+          $memfct->($DC, $KEY, $LABEL);
+        } else {
+          print STDERR "  Error on $f:$lnb malformed line $line\n";
+        }
       }
     }
     $R++;
@@ -343,24 +343,24 @@ sub onLinks {
       if( ($ID1, $ID2, $VSRC, $VDST, $COLOR) = ($line =~ /^([^ ]+) -> ([^ ]+) \[label="([^=]+)=>([^"]+)",color="#(......)"/) ) {
         if( exists($TASKS->{$ID1}) ) {
           $NSRC=nodeRank($ID1);
-	} else {
-	  $NSRC="Unknown";
-	}
-	if( exists($TASKS->{$ID2}) ) {
+        } else {
+          $NSRC="Unknown";
+        }
+        if( exists($TASKS->{$ID2}) ) {
           $NDST=nodeRank($ID2);
-	} else {
-	  $NDST="Unknown";
-	}
-	my $EL=( $COLOR eq "00FF00" );
-	$tofct->($ID1, $ID2, $VSRC, $VDST, $NSRC, $NDST, $EL);
+        } else {
+          $NDST="Unknown";
+        }
+        my $EL=( $COLOR eq "00FF00" );
+        $tofct->($ID1, $ID2, $VSRC, $VDST, $NSRC, $NDST, $EL);
       } else {
-	if( ($ID1, $ID2, $FLOW) = ($line =~ /([^ ]+) -> ([^ ]+) \[label="([^"]+)"\]/ ) ) {
-	  if( !ignored($ID1) && !ignored($ID2) ) {
-	    $dfct->($ID1, $ID2, $FLOW);
-	  }
-	} else {
-	  print STDERR "  Error on $f:$lnb malformed line $line\n";
-	}
+        if( ($ID1, $ID2, $FLOW) = ($line =~ /([^ ]+) -> ([^ ]+) \[label="([^"]+)"\]/ ) ) {
+          if( !ignored($ID1) && !ignored($ID2) ) {
+            $dfct->($ID1, $ID2, $FLOW);
+          }
+        } else {
+          print STDERR "  Error on $f:$lnb malformed line $line\n";
+        }
       }
     }
     $R++;

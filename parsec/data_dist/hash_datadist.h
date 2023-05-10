@@ -40,7 +40,7 @@ typedef struct parsec_hash_datadist_s {
  * Usage:
  *  - Create the hash-based structure with parsec_hash_datadist_create
  *  - Add each data element one after the other using parsec_hash_datadist_set_data
- *    Each MPI rank must add each key at least with the rank. 
+ *    Each MPI rank must add each key at least with the rank.
  *    data pointer and vpid must be defined only for the local node.
  *  - PaRSEC uses the data distribution
  *  - Destroy the structure with parsec_hash_datadist_destroy

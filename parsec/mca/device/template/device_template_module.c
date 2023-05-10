@@ -143,7 +143,7 @@ parsec_device_template_module_init( int deviceid, parsec_device_module_t** modul
     parsec_device_template_module_t* device;
     int show_caps_index, show_caps = 0;
 
-    show_caps_index = parsec_mca_param_find("device", NULL, "show_capabilities"); 
+    show_caps_index = parsec_mca_param_find("device", NULL, "show_capabilities");
     if(0 < show_caps_index) {
         parsec_mca_param_lookup_int(show_caps_index, &show_caps);
     }

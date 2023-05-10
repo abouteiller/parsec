@@ -504,7 +504,7 @@ int parsec_mca_device_fini(void)
     mca_base_component_t *component;
     for(int i = 0; i < num_modules_activated; i++ ) {
         module = modules_activated[i];
-        
+
         component = (mca_base_component_t*)module->component;
         component->mca_close_component();
         modules_activated[i] = NULL;

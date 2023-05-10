@@ -125,7 +125,7 @@ typedef int (*parsec_ce_disable_fn_t)(parsec_comm_engine_t *comm_engine);
 /**
  * @brief Change the underlying group of processes for the communication engine. For
  * MPI this means changing the underlying communicator, and thus the number of nodes
- * and the rank of each process into the new group. 
+ * and the rank of each process into the new group.
  */
 typedef int (*parsec_ce_set_ctx_fn_t)(parsec_comm_engine_t *comm_engine, intptr_t ctx);
 /**

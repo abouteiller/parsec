@@ -57,7 +57,7 @@ typedef struct parsec_profiling_buffer_s {
 
 typedef struct {
     int32_t info_size;                 /* Number of bytes in this structure for the info */
-    int32_t value_size;                /* Number of bytes in this structure for the value 
+    int32_t value_size;                /* Number of bytes in this structure for the value
                                         * Note: info_size + value_size must be <= profiling_buffer_available_bytes */
     char info_and_value[1];            /* Bytes for info and value. */
 } parsec_profiling_info_buffer_t;
@@ -105,7 +105,7 @@ typedef struct parsec_profiling_info_s {
 } parsec_profiling_info_t;
 
 /**
- * Profiling performance measures 
+ * Profiling performance measures
  */
 #define PERF_RESIZE   0
 #define PERF_MEMSET   1

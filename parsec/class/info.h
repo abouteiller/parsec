@@ -100,7 +100,7 @@ struct parsec_info_entry_s {
 
 /**
  * @brief An array of info objects
- * 
+ *
  * @details This structure holds the info objects
  *   in an array indexed by the iid
  */
@@ -150,7 +150,7 @@ parsec_info_id_t parsec_info_register(parsec_info_t *nfo, const char *name,
                                       parsec_info_destructor_t destructor, void *des_data,
                                       parsec_info_constructor_t constructor, void *cons_data,
                                       void *cb_data);
-    
+
 /**
  * @brief unregisters an info key using its ID.
  *
@@ -214,7 +214,7 @@ void *parsec_info_set(parsec_info_object_array_t *oa, parsec_info_id_t iid, void
  *   @param[IN]     iid: the id of the info key to set
  *   @param[IN]    info: the new value of the info
  *   @param[IN]     old: the old value of the info
- *   @return the value of the info object after the operation completed, 
+ *   @return the value of the info object after the operation completed,
  *           or (void*)-1 if a parameter is invalid.
  *
  * @remark obj should belong to a descendent of the class that registered the

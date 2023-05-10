@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
     MPI_Allreduce(MPI_IN_PLACE, &gnbB, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
     MPI_Allreduce(MPI_IN_PLACE, &gnbC, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
 #endif
-    printf("nb = %d, nb_taskA = %d, nb_taskB = %d, nb_taskC = %d -- %s\n", nb, 
+    printf("nb = %d, nb_taskA = %d, nb_taskB = %d, nb_taskC = %d -- %s\n", nb,
            gnbA, gnbB, gnbC,
            gnbA == nb && gnbB == 2*nb && gnbC == nb ? "SUCCESS" : "FAILURE!");
 

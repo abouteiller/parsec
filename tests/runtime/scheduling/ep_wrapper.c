@@ -35,7 +35,7 @@ parsec_taskpool_t *ep_new(parsec_data_collection_t *A, int nt, int level)
     {
         MPI_Aint extent;
 #if defined(PARSEC_HAVE_MPI_20)
-        MPI_Aint lb = 0; 
+        MPI_Aint lb = 0;
         MPI_Type_get_extent(MPI_BYTE, &lb, &extent);
 #else
         MPI_Type_extent(MPI_BYTE, &extent);

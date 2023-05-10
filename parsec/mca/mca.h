@@ -5,19 +5,19 @@
  * Copyright (c) 2004-2013 The University of Tennessee and The University
  *                         of Tennessee Research Foundation.  All rights
  *                         reserved.
- * Copyright (c) 2004-2005 High Performance Computing Center Stuttgart, 
+ * Copyright (c) 2004-2005 High Performance Computing Center Stuttgart,
  *                         University of Stuttgart.  All rights reserved.
  * Copyright (c) 2004-2005 The Regents of the University of California.
  *                         All rights reserved.
  * Copyright (c) 2008      Cisco Systems, Inc.  All rights reserved.
  * $COPYRIGHT$
- * 
+ *
  * Additional copyrights may follow
- * 
+ *
  * $HEADER$
  */
-/** 
- * @file 
+/**
+ * @file
  *
  * Top-level interface for \em all MCA components.
  *
@@ -43,7 +43,7 @@
  *   the change).  If we need to add more space to the struct, we'll
  *   increment the major version number.
  * - The MCA base component struct now has a version number in it
- *   (starting with Open MPI v1.3, it is 2.0.0). 
+ *   (starting with Open MPI v1.3, it is 2.0.0).
  * - As was an unstated assumption in prior versions of Open MPI, the
  *   unversioned versions of struct names (both in the MCA base and in
  *   individual framework bases) are intended for components who want
@@ -53,7 +53,7 @@
  *   struct version name.  Please note, however, the Open MPI
  *   developers may not generally provide older versions of framework
  *   interface structs unless they know if someone outside of the Open
- *   MPI community needs it.  
+ *   MPI community needs it.
  *
  *   ***IF YOU NEED BACKWARDS SOURCE OR BINARY COMPATIBILITY, you must
  *   let us know!***
@@ -148,7 +148,7 @@ typedef struct mca_base_module_2_0_0_t mca_base_module_2_0_0_t;
  */
 typedef int (*mca_base_open_component_1_0_0_fn_t)(void);
 
-/** 
+/**
  * MCA component close function.
  *
  * @retval MCA_SUCCESS The component successfully shut down.
@@ -171,7 +171,7 @@ typedef int (*mca_base_open_component_1_0_0_fn_t)(void);
  */
 typedef int (*mca_base_close_component_1_0_0_fn_t)(void);
 
-/** 
+/**
  * MCA component query function.
  *
  * @retval MCA_SUCCESS The component successfully queried.
@@ -248,7 +248,7 @@ typedef int (*mca_base_register_component_params_2_0_0_fn_t)(void);
  */
 struct mca_base_component_2_0_0_t {
 
-  int mca_major_version; 
+  int mca_major_version;
   /**< Major number of the MCA. */
   int mca_minor_version;
   /**< Minor number of the MCA. */
@@ -321,7 +321,7 @@ typedef struct mca_base_component_data_2_0_0_t mca_base_component_data_t;
 typedef struct mca_base_component_data_2_0_0_t mca_base_component_data_2_0_0_t;
 
 /**
- * Macro for framework author convenience.  
+ * Macro for framework author convenience.
  *
  * This macro is used by frameworks defining their component types,
  * indicating that they subscribe to the MCA version 2.0.0.  See

@@ -57,7 +57,7 @@ static inline void parsec_spq_priority_list_destruct( parsec_spq_priority_list_t
 }
 
 /* Since we're locking the list for all operations anyway,
- * we use the lock to protect the long long int size for updates; 
+ * we use the lock to protect the long long int size for updates;
  * PAPI will read size without locking, which is fine as it is
  * only an approximation of the number of tasks */
 typedef struct {
@@ -166,7 +166,7 @@ static int sched_spq_schedule(parsec_execution_stream_t* es,
     len = 0;
     _LIST_ITEM_ITERATOR(new_context, &new_context->super, item, {len++; });
 #endif
-    
+
     new_prio = 1;
     parsec_list_lock(&task_list->super);
     li = PARSEC_LIST_ITERATOR_FIRST(&task_list->super);

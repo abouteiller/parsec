@@ -7,7 +7,7 @@
 #ifndef PARSEC_SCHEDULING_H_HAS_BEEN_INCLUDED
 #define PARSEC_SCHEDULING_H_HAS_BEEN_INCLUDED
 
-/** 
+/**
  *  @addtogroup parsec_internal_scheduling
  *  @{
  */

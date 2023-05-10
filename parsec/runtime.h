@@ -193,7 +193,7 @@ int parsec_version( int* version_major, int* version_minor, int* version_release
  * the PaRSEC runtime
  *
  * @param[in]    len the length of the output array (in char)
- * @param[out]   version_string a pointer to the array in which the description is output. When 
+ * @param[out]   version_string a pointer to the array in which the description is output. When
  *               the version_string is longer than `len`, the output is truncated.
  *
  * @return PARSEC_SUCCESS on success

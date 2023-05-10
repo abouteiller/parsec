@@ -135,20 +135,20 @@ void parsec_papi_sde_fini(void)
     for(cnt = PARSEC_PAPI_SDE_FIRST_BASIC_COUNTER; cnt <= PARSEC_PAPI_SDE_LAST_BASIC_COUNTER; cnt++) {
         papi_sde_unregister_counter(parsec_papi_sde_handle, hl_counters[cnt].name);
     }
-    
+
     parsec_atomic_rwlock_wrlock( &sde_threads_lock );
     while(NULL != (it = parsec_list_nolock_pop_front(&sde_threads)) ) {
         PARSEC_OBJ_RELEASE(it);
     }
 
     PARSEC_OBJ_DESTRUCT(&sde_threads);
-    parsec_papi_sde_handle = NULL;    
+    parsec_papi_sde_handle = NULL;
 }
 
 void parsec_papi_sde_thread_init(void)
 {
     parsec_thread_sde_counters_t *new_counters;
-    
+
     /* Manage gracefully the case where the communication thread is not created
      * but communications interleave with scheduling and computation */
     if( PARSEC_TLS_GET_SPECIFIC(parsec_papi_sde_basic_counters_tls) != NULL )
@@ -172,7 +172,7 @@ void parsec_papi_sde_thread_fini(void)
     my_counters = PARSEC_TLS_GET_SPECIFIC(parsec_papi_sde_basic_counters_tls);
     if( NULL == my_counters )
         return;
-    
+
     parsec_atomic_rwlock_wrlock( &sde_threads_lock );
     parsec_list_nolock_remove(&sde_threads, &my_counters->super);
     PARSEC_TLS_SET_SPECIFIC(parsec_papi_sde_basic_counters_tls, NULL);
@@ -212,7 +212,7 @@ static long long int parsec_papi_sde_base_counter_cb(void *arg)
 {
     parsec_papi_sde_hl_counters_t cnt = (parsec_papi_sde_hl_counters_t)(uintptr_t)arg;
     long long int sum = 0;
-    
+
     parsec_atomic_rwlock_rdlock( &sde_threads_lock );
     for(parsec_list_item_t *it = PARSEC_LIST_ITERATOR_FIRST(&sde_threads);
         it != PARSEC_LIST_ITERATOR_LAST(&sde_threads);
@@ -255,7 +255,7 @@ void parsec_papi_sde_describe_counter(const char *event_name, const char *descri
     if(NULL == parsec_papi_sde_fptr)
         papi_sde_describe_counter(parsec_papi_sde_handle, event_name, description);
     else {
-        parsec_papi_sde_fptr->register_fp_counter(parsec_papi_sde_handle, event_name, PAPI_SDE_RO|PAPI_SDE_INSTANT, PAPI_SDE_int, 
+        parsec_papi_sde_fptr->register_fp_counter(parsec_papi_sde_handle, event_name, PAPI_SDE_RO|PAPI_SDE_INSTANT, PAPI_SDE_int,
                                                   (papi_sde_fptr_t)NULL, NULL);
         parsec_papi_sde_fptr->describe_counter(parsec_papi_sde_handle, event_name, description);
     }

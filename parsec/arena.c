@@ -243,7 +243,7 @@ parsec_data_copy_t *parsec_arena_get_copy(parsec_arena_t *arena,
     parsec_data_copy_t *copy;
     int rc;
 
-    
+
     data = parsec_data_new();
     if( NULL == data ) {
         return NULL;

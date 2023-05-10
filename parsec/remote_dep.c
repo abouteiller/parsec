@@ -293,7 +293,7 @@ int parsec_remote_dep_init(parsec_context_t* context)
  * @brief This function is called by the progress thread every time a change in
  * the execution context is noticed. As an example when the user change the
  * distributed context via parsec_remote_dep_set_ctx.
- * 
+ *
  * @param context The updated context where the change has been noted.
  * @return int mostly PARSEC_SUCCESS
  */

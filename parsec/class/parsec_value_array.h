@@ -5,14 +5,14 @@
  * Copyright (c) 2004-2019 The University of Tennessee and The University
  *                         of Tennessee Research Foundation.  All rights
  *                         reserved.
- * Copyright (c) 2004-2005 High Performance Computing Center Stuttgart, 
+ * Copyright (c) 2004-2005 High Performance Computing Center Stuttgart,
  *                         University of Stuttgart.  All rights reserved.
  * Copyright (c) 2004-2005 The Regents of the University of California.
  *                         All rights reserved.
  * $COPYRIGHT$
- * 
+ *
  * Additional copyrights may follow
- * 
+ *
  * $HEADER$
  */
 
@@ -56,7 +56,7 @@ PARSEC_DECLSPEC PARSEC_OBJ_CLASS_DECLARATION(parsec_value_array_t);
 
 /**
  * @brief
- *  Initialize the array to hold items by value. This routine must 
+ *  Initialize the array to hold items by value. This routine must
  *  be called prior to using the array.
  *
  *  @param[inout]   array       The array to initialize.
@@ -70,7 +70,7 @@ PARSEC_DECLSPEC PARSEC_OBJ_CLASS_DECLARATION(parsec_value_array_t);
 static inline int parsec_value_array_init(parsec_value_array_t *array, size_t item_sizeof)
 {
     array->array_item_sizeof = item_sizeof;
-    array->array_alloc_size = 1; 
+    array->array_alloc_size = 1;
     array->array_size = 0;
     array->array_items = (unsigned char*)realloc(array->array_items, item_sizeof * array->array_alloc_size);
     return (NULL != array->array_items) ? PARSEC_SUCCESS : PARSEC_ERR_OUT_OF_RESOURCE;
@@ -122,7 +122,7 @@ static inline size_t parsec_value_array_get_size(parsec_value_array_t* array)
  *  Note that resizing the array to a smaller size may not change
  *  the underlying memory allocated by the array. However, setting
  *  the size larger than the current allocation will grow it. In either
- *  case, if the routine is successful, parsec_value_array_get_size() will 
+ *  case, if the routine is successful, parsec_value_array_get_size() will
  *  return the new size.
  *
  *  @param[inout]  array   The input array.
@@ -132,13 +132,13 @@ static inline size_t parsec_value_array_get_size(parsec_value_array_t* array)
  */
 PARSEC_DECLSPEC int parsec_value_array_set_size(parsec_value_array_t* array, size_t size);
 
-/** 
+/**
  * @brief
- *  Macro to retrieve an item from the array by value. 
+ *  Macro to retrieve an item from the array by value.
  *
  * @details
- *  Note that this does not change the size of the array - this macro is 
- *  strictly for performance - the user assumes the responsibility of 
+ *  Note that this does not change the size of the array - this macro is
+ *  strictly for performance - the user assumes the responsibility of
  *  ensuring the array index is valid (0 <= item index < array size).
  *
  *  @param  array       The input array (IN).
@@ -170,13 +170,13 @@ static inline void* parsec_value_array_get_item(parsec_value_array_t *array, siz
     return array->array_items + (item_index * array->array_item_sizeof);
 }
 
-/** 
+/**
  * @brief
  *  Macro to set an array element by value.
  *
  * @details
- *  Note that this does not change the size of the array - this macro is 
- *  strictly for performance - the user assumes the responsibility of 
+ *  Note that this does not change the size of the array - this macro is
+ *  strictly for performance - the user assumes the responsibility of
  *  ensuring the array index is valid (0 <= item index < array size).
  *
  *  @param[in]  array       The input array.
@@ -190,14 +190,14 @@ static inline void* parsec_value_array_get_item(parsec_value_array_t *array, siz
 #define PARSEC_VALUE_ARRAY_SET_ITEM(array, item_type, item_index, item_value) \
     (((item_type*)((array)->array_items))[item_index] = item_value)
 
-/** 
+/**
  * @brief
  *  Set an array element by value.
  *
  * @details
  *  @param[inout]   array       The input array.
  *  @param[in]      item_index  The array index.
- *  @param[in]      item        A pointer to the item, which is copied into 
+ *  @param[in]      item        A pointer to the item, which is copied into
  *                              the array.
  *  @return  error code.
  *
@@ -207,7 +207,7 @@ static inline void* parsec_value_array_get_item(parsec_value_array_t *array, siz
 static inline int parsec_value_array_set_item(parsec_value_array_t *array, size_t item_index, const void* item)
 {
     int rc;
-    if(item_index >= array->array_size && 
+    if(item_index >= array->array_size &&
        (rc = parsec_value_array_set_size(array, item_index+1)) != PARSEC_SUCCESS)
         return rc;
     memcpy(array->array_items + (item_index * array->array_item_sizeof), item, array->array_item_sizeof);
@@ -217,16 +217,16 @@ static inline int parsec_value_array_set_item(parsec_value_array_t *array, size_
 
 /**
  * @brief
- *  Appends an item to the end of the array. 
+ *  Appends an item to the end of the array.
  *
  * @details
  *  This will grow the array if it is not large enough to
  *  contain the item.  It is safe to free the item after returning
- *  from this call; it is copied by value into the array.  
+ *  from this call; it is copied by value into the array.
  *
  *  @param[inout] array The input array
  *  @param[in] item A pointer to the item to append, which is copied into the array.
- *  @return  error code 
+ *  @return  error code
  *
  */
 static inline int parsec_value_array_append_item(parsec_value_array_t *array, const void *item)
@@ -237,7 +237,7 @@ static inline int parsec_value_array_append_item(parsec_value_array_t *array, co
 
 /**
  * @brief
- *  Remove a specific item from the array. 
+ *  Remove a specific item from the array.
  *
  * @details
  * All elements following this index are shifted down.
@@ -251,7 +251,7 @@ static inline int parsec_value_array_remove_item(parsec_value_array_t *array, si
     if (item_index >= array->array_size) {
         return PARSEC_ERR_BAD_PARAM;
     }
-    memmove(array->array_items+(array->array_item_sizeof * item_index), 
+    memmove(array->array_items+(array->array_item_sizeof * item_index),
             array->array_items+(array->array_item_sizeof * (item_index+1)),
             array->array_item_sizeof * (array->array_size - item_index - 1));
     array->array_size--;
@@ -261,7 +261,7 @@ static inline int parsec_value_array_remove_item(parsec_value_array_t *array, si
 /**
  * @brief
  *   Get the base pointer of the underlying array.
- * 
+ *
  * @details
  * This function is helpful when you need to iterate through an
  * entire array; simply get the base value of the array and use native

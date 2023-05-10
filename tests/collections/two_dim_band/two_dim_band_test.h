@@ -11,10 +11,10 @@
 
 /**
  * @param [in] Y:    the data, already distributed and allocated
- * @param [in] uplo: Upper / Lower / UpperLower 
+ * @param [in] uplo: Upper / Lower / UpperLower
  * @return the parsec object to schedule.
  */
-parsec_taskpool_t* 
+parsec_taskpool_t*
 parsec_two_dim_band_New(parsec_tiled_matrix_t *Y, int uplo);
 
 /**
@@ -26,14 +26,14 @@ void parsec_two_dim_band_Destruct(parsec_taskpool_t *taskpool);
  * @brief Init dcY
  *
  * @param [inout] dcY: the data, already distributed and allocated
- * @param [in] uplo: Upper / Lower / UpperLower 
+ * @param [in] uplo: Upper / Lower / UpperLower
  */
 int parsec_two_dim_band_test(parsec_context_t *parsec,
                         parsec_tiled_matrix_t *dcY, int uplo);
 
 /**
  * @param [in] Y:    the data, already distributed and allocated
- * @param [in] uplo: Upper / Lower / UpperLower 
+ * @param [in] uplo: Upper / Lower / UpperLower
  * @return the parsec object to schedule.
  */
 parsec_taskpool_t*
@@ -46,9 +46,9 @@ void parsec_two_dim_band_free_Destruct(parsec_taskpool_t *taskpool);
 
 /**
  * @brief Free dcY
- * 
+ *
  * @param [inout] dcY: the data, already distributed and allocated
- * @param [in] uplo: Upper / Lower / UpperLower 
+ * @param [in] uplo: Upper / Lower / UpperLower
  */
 int parsec_two_dim_band_free(parsec_context_t *parsec,
                             parsec_tiled_matrix_t *dcY, int uplo);
