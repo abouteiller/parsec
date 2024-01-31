@@ -375,7 +375,6 @@ void parsec_devices_print_statistics(parsec_context_t *parsec_context, uint64_t 
     float best_required_in, best_required_out;
     char *data_in_unit, *data_out_unit, *d2d_unit;
     char *required_in_unit, *required_out_unit;
-    char percent1[64], percent2[64], percent3[64];
     parsec_device_module_t *device;
     uint32_t i;
 
@@ -407,8 +406,6 @@ void parsec_devices_print_statistics(parsec_context_t *parsec_context, uint64_t 
     }
 
     /* Print statistics */
-    if( 0 == total_data_in )  total_data_in  = 1;
-    if( 0 == total_data_out ) total_data_out = 1;
     gtotal = (float)total_tasks;
 
     printf("+----------------------------------------------------------------------------------------------------------------------------+\n");
@@ -443,23 +440,11 @@ void parsec_devices_print_statistics(parsec_context_t *parsec_context, uint64_t 
     parsec_compute_best_unit( total_data_out,     &best_data_out,     &data_out_unit     );
     parsec_compute_best_unit( total_d2d,          &best_d2d,          &d2d_unit          );
 
-    if( 0 == total_required_in ) {
-        snprintf(percent1, 64, "nan");
-        snprintf(percent2, 64, "nan");
-    } else {
-        snprintf(percent1, 64, "%5.2f",  ((double)total_data_in  / (double)total_required_in ) * 100.0);
-        snprintf(percent2, 64, "%5.2f", ((double)total_d2d / (double)total_required_in) * 100.0);
-    }
-    if( 0 == total_required_out ) {
-        snprintf(percent3, 64, "nan");
-    } else {
-        snprintf(percent3, 64, "%5.2f", ((double)total_data_out / (double)total_required_out) * 100.0);
-    }
-    printf("|All Devs |%10"PRIu64" | %5.2f | %8.2f%2s |   %8.2f%2s(%s)   |   %8.2f%2s(%s)   | %8.2f%2s | %8.2f%2s(%s) |\n",
+    printf("|All Devs |%10"PRIu64" | %6.2f | %8.2f%2s |   %8.2f%2s(%5.2f)   |   %8.2f%2s(%5.2f)   | %8.2f%2s | %8.2f%2s(%5.2f) |\n",
            total_tasks, (total_tasks/gtotal)*100.00,
-           best_required_in,  required_in_unit,  best_data_in,  data_in_unit, percent1,
-           best_d2d, d2d_unit, percent2,
-           best_required_out, required_out_unit, best_data_out, data_out_unit, percent3);
+           best_required_in,  required_in_unit,  best_data_in,  data_in_unit, ((double)total_data_in  / (double)total_required_in) * 100.0,
+           best_d2d, d2d_unit, ((double)total_d2d / (double)total_required_in) * 100.0,
+           best_required_out, required_out_unit, best_data_out, data_out_unit, ((double)total_data_out / (double)total_required_out) * 100.0);
     printf("+----------------------------------------------------------------------------------------------------------------------------+\n");
 
 
