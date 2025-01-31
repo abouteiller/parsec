@@ -48,6 +48,7 @@ static int parsec_param_nb_tasks_extracted = 20;
  */
 static size_t parsec_param_short_limit = RDEP_MSG_SHORT_LIMIT;
 static int parsec_param_enable_aggregate = 0;
+static int parsec_param_randomize_gpu = 0;
 
 parsec_mempool_t *parsec_remote_dep_cb_data_mempool = NULL;
 
@@ -206,6 +207,8 @@ static void remote_dep_mpi_params(parsec_context_t* context) {
 #endif
     parsec_mca_param_reg_int_name("runtime", "comm_aggregate", "Aggregate multiple dependencies in the same short message (1=true,0=false).",
                                   false, false, parsec_param_enable_aggregate, &parsec_param_enable_aggregate);
+    parsec_mca_param_reg_int_name("experimental", "comm_random_gpu_target", "Pick the target GPU at random when allocating memory for MPI buffers (1=true,0=false).",
+                                  false, false, parsec_param_randomize_gpu, &parsec_param_randomize_gpu);
 }
 
 int
@@ -831,6 +834,7 @@ remote_dep_mpi_retrieve_datatype(parsec_execution_stream_t *eu,
             parsec_data_t* data = dref.dc->data_of_key(dref.dc, dref.key);
             output->data.preferred_device = (-1 != data->preferred_device) ?
                                             data->preferred_device : data->owner_device;
+//            printf("%02d: dc: %p key:%lx data=%p, pref=%d, owner=%d\n", parsec_debug_rank, dref.dc, dref.key, data, data->preferred_device, data->owner_device);
         }
     }
     return PARSEC_ITERATE_CONTINUE;
@@ -2113,6 +2117,10 @@ static void remote_dep_mpi_get_start(parsec_execution_stream_t* es,
         assert(NULL == deps->output[k].data.data); /* we do not support in-place tiles now, make sure it doesn't happen yet */
         if(NULL == deps->output[k].data.data) {
             int best_device = (parsec_mpi_allow_gpu_memory_communications & PARSEC_RUNTIME_RECV_GPU_MEMORY) ? deps->output[k].data.preferred_device : 0;
+            if(best_device != 0 && parsec_param_randomize_gpu) {
+                best_device = 1 + rand() / (RAND_MAX / (parsec_nb_devices-1) + 1);
+            }
+ //           printf("%02d; data %p prefers device %d\n", parsec_debug_rank, deps->output[k].data.data, best_device);
             deps->output[k].data.data = remote_dep_copy_allocate(&deps->output[k].data.remote, best_device);
         }
         /* Mark the data under tranfer */
