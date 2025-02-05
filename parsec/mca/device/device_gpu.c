@@ -1,6 +1,6 @@
 /*
  *
- * Copyright (c) 2021-2024 The University of Tennessee and The University
+ * Copyright (c) 2021-2025 The University of Tennessee and The University
  *                         of Tennessee Research Foundation.  All rights
  *                         reserved.
  * Copyright (c) 2024      NVIDIA Corporation.  All rights reserved.
@@ -18,6 +18,12 @@
 #include "parsec/scheduling.h"
 
 #include <limits.h>
+
+#define PARSEC_EXPERIMENT_FORCE_UVM 1
+#if defined(PARSEC_EXPERIMENT_FORCE_UVM)
+#define UVM_MANAGED 1
+#warning "PARSEC_EXPERIMENT_FORCE_UVM=1"
+#endif
 
 #define PARSEC_DEVICE_DATA_COPY_ATOMIC_SENTINEL 1024
 
@@ -585,6 +591,30 @@ parsec_device_detach( parsec_device_module_t* device, parsec_context_t* context 
     return parsec_mca_device_remove(device);
 }
 
+#if defined(PARSEC_EXPERIMENT_FORCE_UVM)
+#include <cuda.h>
+#include <cuda_runtime_api.h>
+
+static void *parsecMallocHost(size_t size) {
+    void *ptr;
+#if defined(UVM_MANAGED)
+    if(cudaSuccess != cudaMallocManaged(&ptr, size, cudaMemAttachGlobal)) return NULL;
+    if(cudaSuccess != cudaMemAdvise(ptr, size, cudaMemAdviseSetPreferredLocation, cudaCpuDeviceId) /* cpu by default */) return NULL;
+#else
+    if(cudaSuccess != cudaHostAlloc(&ptr, size, cudaHostAllocPortable | cudaHostAllocWriteCombined)) return NULL;
+#endif
+    return ptr;
+}
+
+static void parsecFreeHost(void *ptr) {
+#if defined(UVM_MANAGED)
+    cudaFree(ptr);
+#else
+    cudaFreeHost(ptr);
+#endif
+}
+#endif /* defined(PARSEC_EXPERIMENT_FORCE_UVM) */
+
 /**
  * This function reserve the memory_percentage of the total device memory for PaRSEC.
  * This memory will be managed in chunks of size eltsize. However, multiple chunks
@@ -601,6 +631,11 @@ parsec_device_memory_reserve( parsec_device_gpu_module_t* gpu_device,
     size_t alloc_size;
     size_t total_mem, initial_free_mem;
     size_t mem_elem_per_gpu = 0;
+
+#if defined(PARSEC_EXPERIMENT_FORCE_UVM)
+    parsec_data_allocate = parsecMallocHost;
+    parsec_data_free = parsecFreeHost;
+#endif /* defined(PARSEC_EXPERIMENT_FORCE_UVM) */
 
     rc = gpu_device->set_device(gpu_device);
     if(PARSEC_SUCCESS != rc)
@@ -767,7 +802,9 @@ static void parsec_device_memory_release_list(parsec_device_gpu_module_t* gpu_de
                                          gpu_device->super.device_index, NULL, 0);
         }
 #endif
+#if !defined(PARSEC_EXPERIMENT_FORCE_UVM)
         zone_free( gpu_device->memory, (void*)gpu_copy->device_private );
+#endif /* !defined(PARSEC_EXPERIMENT_FORCE_UVM) */
 #endif
         gpu_copy->device_private = NULL;
 
@@ -1008,7 +1045,12 @@ parsec_device_data_reserve_space( parsec_device_gpu_module_t* gpu_device,
     malloc_data:
         copy_readers_update = 0;
         assert(0 != (gpu_elem->flags & PARSEC_DATA_FLAG_PARSEC_OWNED) );
+#if !defined(PARSEC_EXPERIMENT_FORCE_UVM)
         gpu_elem->device_private = zone_malloc(gpu_device->memory, gpu_task->flow_nb_elts[i]);
+#else
+        gpu_elem->device_private = master->device_copies[0]->device_private; /* UVM into the CPU copy */
+        assert(NULL != gpu_elem->device_private);
+#endif /* !defined(PARSEC_EXPERIMENT_FORCE_UVM) */
         gpu_elem->arena_chunk = (parsec_arena_chunk_t *)gpu_device->memory;
         if( NULL == gpu_elem->device_private ) {
 #endif
@@ -1298,6 +1340,7 @@ parsec_default_gpu_stage_in(parsec_gpu_task_t        *gtask,
         }
 
         count = (src_copy->original->nb_elts <= dst_copy->original->nb_elts) ? src_copy->original->nb_elts : dst_copy->original->nb_elts;
+#if !defined(PARSEC_EXPERIMENT_FORCE_UVM) || UVM_MANAGED
         ret = dst_dev->memcpy_async(dst_dev, gpu_stream,
                                     dst_copy->device_private,
                                     src_copy->device_private,
@@ -1305,6 +1348,7 @@ parsec_default_gpu_stage_in(parsec_gpu_task_t        *gtask,
                                     dir);
         if(PARSEC_SUCCESS != ret)
             return PARSEC_HOOK_RETURN_ERROR;
+#endif /* !defined(PARSEC_EXPERIMENT_FORCE_UVM) */
     }
     return PARSEC_HOOK_RETURN_DONE;
 }
@@ -1346,6 +1390,7 @@ parsec_default_gpu_stage_out(parsec_gpu_task_t        *gtask,
             } else {
                 dir = parsec_device_gpu_transfer_direction_d2h;
             }
+#if !defined(PARSEC_EXPERIMENT_FORCE_UVM) || UVM_MANAGED
             ret = src_dev->memcpy_async( src_dev, gpu_stream,
                                          dst_copy->device_private,
                                          src_copy->device_private,
@@ -1354,6 +1399,7 @@ parsec_default_gpu_stage_out(parsec_gpu_task_t        *gtask,
             if(PARSEC_SUCCESS != ret) {
                 return PARSEC_HOOK_RETURN_ERROR;
             }
+#endif /* !defined(PARSEC_EXPERIMENT_FORCE_UVM) */
         }
     }
     return PARSEC_HOOK_RETURN_DONE;

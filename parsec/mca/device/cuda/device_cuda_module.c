@@ -187,6 +187,10 @@ parsec_cuda_memory_register(parsec_device_module_t* device, parsec_data_collecti
     cudaError_t status;
     int rc = PARSEC_ERROR;
 
+#if defined(PARSEC_EXPERIMENT_FORCE_UVM) || 1
+    desc->memory_registration_status = PARSEC_MEMORY_STATUS_REGISTERED;
+#endif
+
     /* Memory needs to be registered only once with CUDA. */
     if (desc->memory_registration_status == PARSEC_MEMORY_STATUS_REGISTERED) {
         rc = PARSEC_SUCCESS;
@@ -215,6 +219,10 @@ static int parsec_cuda_memory_unregister(parsec_device_module_t* device, parsec_
 {
     cudaError_t status;
     int rc = PARSEC_ERROR;
+
+#if defined(PARSEC_EXPERIMENT_FORCE_UVM) || 1
+    desc->memory_registration_status = PARSEC_MEMORY_STATUS_UNREGISTERED;
+#endif
 
     /* Memory needs to be registered only once with CUDA. One registration = one deregistration */
     if (desc->memory_registration_status == PARSEC_MEMORY_STATUS_UNREGISTERED) {
@@ -323,6 +331,14 @@ static int parsec_cuda_memcpy_async(struct parsec_device_gpu_module_s *gpu, stru
     parsec_cuda_exec_stream_t *cuda_stream = (parsec_cuda_exec_stream_t *)gpu_stream;
 
     (void)gpu;
+
+#if defined(PARSEC_EXPERIMENT_FORCE_UVM) || 1
+    parsec_device_cuda_module_t *cuda_device = (parsec_device_cuda_module_t *)gpu;
+    cudaStatus = cudaMemAdvise(dest, bytes, cudaMemAdviseSetPreferredLocation, parsec_device_gpu_transfer_direction_d2h == direction? cudaCpuDeviceId: cuda_device->cuda_index);
+    PARSEC_CUDA_CHECK_ERROR("cudaMemAdvise", cudaStatus, {assert(0); return PARSEC_ERROR;} );
+    return PARSEC_SUCCESS;
+#endif
+
 
     switch(direction) {
     case parsec_device_gpu_transfer_direction_d2d:
